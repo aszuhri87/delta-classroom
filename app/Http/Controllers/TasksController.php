@@ -37,7 +37,7 @@ class TasksController extends Controller
 
     public function show(Request $request, $id)
     {
-        $task = \DB::table('tasks')
+        $task = DB::table('tasks')
             ->select([
                 'tasks.*',
                 'tasks.name as task_name',
@@ -47,6 +47,7 @@ class TasksController extends Controller
             ])
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
+            ->where('tasks.id', $id)
             ->orderBy('tasks.created_at', 'desc')
             ->first();
 
