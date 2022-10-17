@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Hash;
 use Illuminate\Http\Request;
 use Redirect;
 
@@ -15,6 +16,13 @@ class AuthController extends Controller
         ]);
 
         $user = \App\Models\Student::where('email', $request->email)->first();
+
+        if (!$user) {
+            return Redirect::back()->withErrors(['message' => 'Login failed!, check your email or password.'])->withInput();
+            if (!Hash::check($request->password, $user->password)) {
+                return Redirect::back()->withErrors(['message' => 'Login failed!, check your password.'])->withInput();
+            }
+        }
 
         if ($user && Auth::login($user)) {
             return redirect('/task');
