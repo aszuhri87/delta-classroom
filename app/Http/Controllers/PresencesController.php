@@ -43,14 +43,14 @@ class PresencesController extends Controller
     {
         $class = Classroom::where('presence_code', $request->presence_code)->first();
 
+        if (!$class) {
+            return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Kode tidak dikenal.'])->withInput();
+        }
+
         $presence = Presence::where('classroom_id', $class->id)->first();
 
         if ($presence) {
             return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Anda sudah masuk ke kelas ini'])->withInput();
-        }
-
-        if (!$class) {
-            return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Kode Tidak Dikenal.'])->withInput();
         }
 
         if ($request->presence_code == $class->presence_code) {

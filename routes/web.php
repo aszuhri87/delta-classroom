@@ -19,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::middleware(['guest-handling'])->group(function () {
     Route::get('/', function () {
-        return view('welcome');
+        return redirect('login');
     });
 
     Route::get('login', function (Request $request) {
@@ -48,6 +48,8 @@ Route::middleware(['auth-handling'])->group(function () {
     Route::post('assignment/update/{id}', [AssignmentsController::class, 'update']);
 
     Route::get('assignment/download/{id}', [AssignmentsController::class, 'download']);
+
+    Route::get('assignment/stream/{id}', [AssignmentsController::class, 'stream']);
 
     Route::get('presence', [PresencesController::class, 'index']);
 

@@ -8,6 +8,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 
 class TaskController extends Controller
@@ -71,7 +72,7 @@ class TaskController extends Controller
             'assignment_files.assignment_id',
             'assignment_files.name as assignment_name',
             'students.name as student_name',
-            'assignment_files.file_path',
+            DB::raw('CONCAT(assignment_files.file_path,assignment_files.name) as file_path'),
             DB::raw('CASE WHEN assignments.score IS NULL THEN 0 ELSE assignments.score END AS score'),
             'assignments.detail as assignment_detail',
         ])
@@ -88,8 +89,8 @@ class TaskController extends Controller
     {
         if ($request->hasFile('file_path')) {
             $file = $request->file('file_path');
-            $name = 'Task_'.date('Y-m-d_s').'_'.$file->getClientOriginalName();
-            $file->move(storage_path().'/files/', $name);
+            $name = str_replace(' ', '_', $request->name).'_'.date('Y-m-d_s').'_.'.$file->extension();
+            $file->move(storage_path().'/app/public/files', $name);
 
             $value = $name;
         } else {
@@ -112,8 +113,8 @@ class TaskController extends Controller
     {
         if ($request->hasFile('file_path')) {
             $file = $request->file('file_path');
-            $name = 'Task_'.date('Y-m-d_s').'_'.$file->getClientOriginalName();
-            $file->move(storage_path().'/files/', $name);
+            $name = str_replace(' ', '_', $request->name).'_'.date('Y-m-d_s').'_.'.$file->extension();
+            $file->move(storage_path().'/app/public/files', $name);
 
             $value = $name;
         } else {
@@ -143,15 +144,39 @@ class TaskController extends Controller
 
     public function download(Request $request, $id)
     {
-        $file = \DB::table('tasks')
+        $filex = DB::table('tasks')
             ->select([
-                'tasks.file_path',
+                'file_path',
             ])
             ->where('id', $id)
             ->whereNull('deleted_at')
             ->first();
 
-        return response()->download(storage_path('files/'.$file->file_path));
+        $mime = File::mimeType(storage_path('/app/public/files', $filex->file_path));
+
+        $file = 'storage/files/'.$filex->file_path;
+
+        return view('admin.stream', compact('file', 'mime'));
+    }
+
+    public function download_assign(Request $request, $id)
+    {
+        $filex = DB::table('assignment_files')
+        ->select([
+            'name',
+            DB::raw('CONCAT(assignment_files.file_path,assignment_files.name) as file_path'),
+        ])
+        ->where('assignment_id', $id)
+        ->whereNull('deleted_at')
+        ->first();
+
+        $mime = File::mimeType($filex->file_path);
+
+        $ext = File::extension($filex->file_path);
+
+        $file = 'storage/assignment_files/'.$filex->name;
+
+        return view('admin.stream', compact('file', 'mime'));
     }
 
     public function delete(Request $request, $id)

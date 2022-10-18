@@ -16,5 +16,9 @@ Route::prefix('admin')->middleware(['admin-handling'])->group(function () {
 
     Route::get('task/download/{id}', [TaskController::class, 'download']);
 
+    Route::get('task/download_assignment/{id}', [TaskController::class, 'download_assign']);
+
+    Route::get('assignment/stream/{id}', [AssignmentsController::class, 'stream']);
+
     Route::get('task/delete/{id}', [TaskController::class, 'delete']);
 });

@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class TasksController extends Controller
 {
@@ -55,7 +56,7 @@ class TasksController extends Controller
             ->select([
                 'assignment_files.id',
                 'assignment_files.name as assign_name',
-                'assignment_files.file_path',
+                DB::raw('CONCAT(assignment_files.file_path,assignment_files.name) as file_path'),
                 DB::raw('CASE WHEN assignments.score IS NULL THEN 0 ELSE assignments.score END AS score'),
                 DB::raw("CASE WHEN assignments.detail IS NULL THEN '-' ELSE assignments.detail END AS detail"),
                 'assignment_files.created_at',
@@ -72,14 +73,18 @@ class TasksController extends Controller
 
     public function download(Request $request, $id)
     {
-        $file = DB::table('tasks')
+        $filex = DB::table('tasks')
             ->select([
-                'tasks.file_path',
+                'file_path',
             ])
             ->where('id', $id)
             ->whereNull('deleted_at')
             ->first();
 
-        return response()->download(storage_path('files/'.$file->file_path));
+        $mime = File::mimeType(storage_path('/app/public/files/', $filex->file_path));
+
+        $file = 'storage/files/'.$filex->file_path;
+
+        return view('stream', compact('file', 'mime'));
     }
 }

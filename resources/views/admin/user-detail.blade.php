@@ -30,62 +30,6 @@
     </div>
 </div>
 
-<div class="class-list">
-    <div class="card w-100 mb-5" >
-        <div class="card-body">
-            <h5> CLassroom List </h5>
-            <table class="table mb-0 table-bordered" width="100%">
-                <tbody>
-                    <tr>
-                        <th scope="col" class="text-center">#</th>
-                        <th scope="col">Class Name</th>
-                        <th scope="col">Division</th>
-                    </tr>
-                    @foreach ($classroom  as $index => $class)
-                    <tr>
-                        <th scope="row" class="text-center">{{$index + 1}}</th>
-                        <td scope="col">{{ $class->class_name }}</td>
-                        <td scope="col">{{$class->division}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="mt-4 w-100">
-                {{ $classroom->links() }}
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="class-list">
-    <div class="card w-100 mb-5" >
-        <div class="card-body">
-            <h5> Task List </h5>
-            <table class="table mb-0 table-bordered" width="100%">
-                <tbody>
-                    <tr>
-                        <th scope="col" class="text-center">#</th>
-                        <th scope="col">Task Name</th>
-                        <th scope="col">Group</th>
-                        <th scope="col">Expired at</th>
-                    </tr>
-                    @foreach ($task  as $index => $item)
-                    <tr>
-                        <th scope="row" class="text-center">{{$index + 1}}</th>
-                        <td scope="col">{{ $item->name }}</td>
-                        <td scope="col">{{$item->group}}</td>
-                        <td scope="col">{{$item->expired_at}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="mt-4 w-100">
-                {{ $task->links() }}
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-lg">

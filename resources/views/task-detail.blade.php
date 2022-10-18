@@ -59,10 +59,6 @@
                 @csrf
                 <div class="modal-body">
                     <input type="hidden" class="form-control" name="task_id" id="task_id" value="{{$task->id}}">
-                    <div class="form-group">
-                        <label for="number-input">Nama</label>
-                        <input type="text" required class="form-control" placeholder="Assignment Name" name="name" id="name">
-                    </div>
                     <label for="number-input">File Tugas Kamu</label>
                     <div class="custom-file mb-2">
                         <input type="file" name="file_path" class="dropify">
@@ -74,7 +70,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-save">Submit</button>
                 </div>
             </form>
         </div>
@@ -97,11 +93,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{-- <input type="hidden" class="form-control" name="task_id" id="task_id" value="{{$task->id}}"> --}}
-                    <div class="form-group">
-                        <label for="number-input">Nama</label>
-                        <input type="text" required class="form-control" placeholder="Assignment Name" name="name" id="name" value="{{$assignment->assign_name}}">
-                    </div>
+                    <input type="hidden" class="form-control" name="task_id" id="task_id" value="{{$task->id}}">
+
                     <label for="number-input">File Tugas Kamu</label>
                     <div class="custom-file mb-2">
                         <input type="file" name="file_path" class="dropify">
@@ -113,26 +106,21 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-save">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
 <div class="assignment-place">
     <div class="card w-100 mb-5" >
         <div class="card-body">
             <table class="table mb-0 table-bordered" width="100%">
                 <tbody>
-                <tr>
-                    <th scope="col">Nama File Tugas</th>
-                    <td scope="col">{{$assignment->assign_name}}</td>
-                </tr>
                     <tr>
                         <th scope="col">File Tugas</th>
-                        <td scope="col"> <a href="{{url('/assignment/download/'.$assignment->id)}}"> {{$assignment->file_path}}</a></td>
+                        <td scope="col"> <a href="{{url('/assignment/download/'.$assignment->id)}}"> {{$assignment->assign_name}}</a></td>
                     </tr>
                     <tr>
                         <th scope="col">Tanggal Submit</th>
@@ -168,12 +156,27 @@
 @push('script')
 <script>
     $(document).ready(function() {
+        $('.dropify').dropify();
         var data_unit = <?php echo json_encode($assignment)?>;
-        $(document).ready(function() {
-            $('.dropify').dropify();
-            $(document).on('click', '.edit-btn', function(event){
-                $('#form-edit').find('textarea[name="detail"]').val(data_unit.detail);
-                $('#form-edit').find('input[name="file_path", type="file"]').val(data_unit.file_path);
+        $(document).on('click', '.edit-btn', function(event){
+            $('#form-edit').find('textarea[name="detail"]').val(data_unit.detail);
+            $('#form-edit').find('input[name="file_path", type="file"]').val(data_unit.file_path);
+        });
+
+        $('.btn-save').click(function() {
+            $('.modal').modal('hide');
+            $.blockUI({
+                message:
+                '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+                css: {
+                backgroundColor: 'transparent',
+                color: '#fff',
+                border: '0'
+                },
+                overlayCSS: {
+                opacity: 0.5
+                },
+                timeout: 1000,
             });
         });
     });

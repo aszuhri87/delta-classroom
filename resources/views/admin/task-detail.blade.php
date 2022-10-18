@@ -93,16 +93,16 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Attachment : </label>
-                                                     <a href="{{url('/admin/task/download/'.$list->file_path)}}"> {{$list->file_path}}</a>
+                                                     <a href="{{url('/admin/task/download_assignment/'.$list->assignment_id)}}"> {{$list->assignment_name}}</a>
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Give Score</label>
-                                                <input type="number" class="form-control" placeholder="Give your score" name="score" id="score" value="{{$list->score}}">
+                                                <input type="number" class="form-control" placeholder="Give your score" name="score" max="100" id="score" value="{{$list->score}}">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Submit Score</button>
+                                            <button type="submit" class="btn btn-primary btn-save">Submit Score</button>
                                         </div>
                                     </form>
                                 </div>
@@ -162,7 +162,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-save">Submit</button>
                 </div>
             </form>
         </div>
@@ -191,6 +191,23 @@
             $('.dropify').dropify();
             $(document).on('click', '.show-btn', function(event){
                 $('#form-score').find('textarea[name="detail"]').val(data_unit2.assignment_detail);
+            });
+        });
+
+        $('.btn-save').click(function() {
+            $('.modal').modal('hide');
+            $.blockUI({
+                message:
+                '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+                css: {
+                backgroundColor: 'transparent',
+                color: '#fff',
+                border: '0'
+                },
+                overlayCSS: {
+                opacity: 0.5
+                },
+                timeout: 1000,
             });
         });
     });

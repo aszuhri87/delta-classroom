@@ -7,6 +7,7 @@ use App\Models\AssignmentFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 
 class AssignmentsController extends Controller
@@ -15,8 +16,8 @@ class AssignmentsController extends Controller
     {
         if ($request->hasFile('file_path')) {
             $file = $request->file('file_path');
-            $name = $request->name.'_'.date('Y-m-d_s').'.'.$file->extension();
-            $file->move(storage_path().'/assignment_files/', $name);
+            $name = str_replace('.'.$file->extension(), '_', str_replace(' ', '_', $file->getClientOriginalName())).'_'.date('Y-m-d_s').'.'.$file->extension();
+            $file->move(storage_path().'/app/public/assignment_files/', $name);
 
             $value = $name;
         } else {
@@ -26,14 +27,13 @@ class AssignmentsController extends Controller
         $assignment = Assignment::create([
             'student_id' => Auth::id(),
             'task_id' => $request->task_id,
-            'name' => $request->name,
             'detail' => $request->detail,
         ]);
 
         AssignmentFile::create([
             'assignment_id' => $assignment->id,
-            'name' => $request->name,
-            'file_path' => $value,
+            'name' => $value,
+            'file_path' => storage_path().'/app/public/assignment_files/',
         ]);
 
         return Redirect::back();
@@ -44,25 +44,25 @@ class AssignmentsController extends Controller
         $assignment = Assignment::find($id);
         if ($request->hasFile('file_path')) {
             $file = $request->file('file_path');
-            $name = $request->name.'_'.date('Y-m-d_s').'.'.$file->extension();
-            $file->move(storage_path().'/assignment_files/', $name);
+            $name = str_replace('.'.$file->extension(), '_', str_replace(' ', '_', $file->getClientOriginalName())).'_'.date('Y-m-d_s').'.'.$file->extension();
+            $file->move(storage_path().'/app/public/assignment_files/', $name);
 
             $value = $name;
         } else {
             $value = $request->file_path;
         }
 
-        $assignment = Assignment::create([
+        $assignment->update([
             'student_id' => Auth::id(),
             'task_id' => $request->task_id,
-            'name' => $request->name,
             'detail' => $request->detail,
         ]);
 
-        AssignmentFile::create([
+        $assignment_file = AssignmentFile::where('assignment_id', $id);
+        $assignment_file->update([
             'assignment_id' => $assignment->id,
-            'name' => $request->name,
-            'file_path' => $value,
+            'name' => $value,
+            'file_path' => storage_path().'/app/public/assignment_files/',
         ]);
 
         return Redirect::back();
@@ -70,14 +70,19 @@ class AssignmentsController extends Controller
 
     public function download(Request $request, $id)
     {
-        $file = DB::table('assignment_files')
+        $filex = DB::table('assignment_files')
             ->select([
-                'file_path',
+                'name',
+                DB::raw('CONCAT(assignment_files.file_path,assignment_files.name) as file_path'),
             ])
             ->where('id', $id)
             ->whereNull('deleted_at')
             ->first();
 
-        return response()->download(storage_path('assignment_files/'.$file->file_path));
+        $mime = File::mimeType($filex->file_path);
+
+        $file = 'storage/assignment_files/'.$filex->name;
+
+        return view('stream', compact('file', 'mime'));
     }
 }

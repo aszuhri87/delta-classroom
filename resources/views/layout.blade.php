@@ -55,6 +55,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('lib/prism.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/dropify@0.2.2/dist/js/dropify.min.js"></script>
+    <script src="{{asset('js/jquery.blockUI.js')}}"></script>
+
 
     @stack('script')
 </body>
