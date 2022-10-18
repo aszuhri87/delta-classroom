@@ -18,7 +18,7 @@
         <div class="d-flex justify-content-center align-items-center" style="width: 100vw; height: 100vh;">
             <div class="" width="400px">
                 <center>
-                    <img src="{{asset('logo/logo.png')}}" class="mb-4" width="100px" alt="">
+                    <img src="{{asset('logo/logo.png')}}" class="mb-4" width="250px" alt="">
                 </center>
                 <div class="card m-3">
                     <div class="card-body" style="width:320px">
@@ -37,7 +37,7 @@
                                 <label for="exampleInputEmail1">Password</label>
                                 <input type="password" name="password" class="form-control" placeholder="Passsword">
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-save">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -48,5 +48,26 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 
+        <script>
+            $(document).ready(function() {
+
+
+            $('.btn-save').click(function() {
+                $.blockUI({
+                    message:
+                    '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+                    css: {
+                    backgroundColor: 'transparent',
+                    color: '#fff',
+                    border: '0'
+                    },
+                    overlayCSS: {
+                    opacity: 0.5
+                    },
+                    timeout: 1000,
+                });
+            });
+        });
+        </script>
     </body>
 </html>

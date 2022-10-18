@@ -16,7 +16,7 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('group_id')->nullable();
-            $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
 
             $table->string('name');
             $table->string('number');
@@ -24,6 +24,7 @@ class CreateStudentsTable extends Migration
             $table->string('phone_number');
             $table->string('password');
             $table->string('school_origin');
+            $table->date('birth');
             $table->timestamps();
             $table->softDeletes();
         });

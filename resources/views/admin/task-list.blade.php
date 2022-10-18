@@ -34,7 +34,7 @@
                     <td class="text-center">{{$item->task_name}}</td>
                     <td class="text-center">{{$item->expired_at}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0" href="{{url('/admin/task/'.$item->id)}}">Detail</a>
+                        <a class="btn btn-sm btn-success m-0" target="_blank" href="{{url('/admin/task/'.$item->id)}}">Detail</a>
                         <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/task/delete/'.$item->id)}}">Delete</a>
                     </td>
                 </tr>
@@ -104,6 +104,8 @@
         });
 
         $('.btn-save').click(function() {
+            $('.modal').modal('hide');
+
             $.blockUI({
                 message:
                 '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
@@ -117,7 +119,6 @@
                 },
                 timeout: 1000,
             });
-                        // setTimeout($.unblockUI, 2100);
             });
     </script>
 @endpush

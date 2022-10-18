@@ -31,6 +31,10 @@
                         <td scope="col">{{$student->email}}</td>
                     </tr>
                     <tr>
+                        <th scope="col">Date of bith</th>
+                        <td scope="col">{{$student->birth}}</td>
+                    </tr>
+                    <tr>
                         <th scope="col">Number</th>
                         <td scope="col">{{$student->number}}</td>
                     </tr>
@@ -123,6 +127,10 @@
                             <input type="password"  class="form-control" placeholder="Password" name="password" id="password">
                         </div>
                         <div class="form-group">
+                            <label for="number-input">Date of birth</label>
+                            <input type="date" required name="birth" class="form-control value="{{$student->birth}}"">
+                        </div>
+                        <div class="form-group">
                             <label for="number-input">Number</label>
                             <input type="text"  class="form-control" placeholder="Student Number" name="number" id="number"  value="{{$student->number}}">
                         </div>
@@ -135,7 +143,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary btn-save">Submit</button>
             </div>
         </form>
     </div>
@@ -152,7 +160,27 @@
                 $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
             });
         });
+
+        $('.btn-save').click(function() {
+            $('.modal').modal('hide');
+
+            $.blockUI({
+                message:
+                '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+                css: {
+                backgroundColor: 'transparent',
+                color: '#fff',
+                border: '0'
+                },
+                overlayCSS: {
+                opacity: 0.5
+                },
+                timeout: 1000,
+            });
+        });
     });
+
+
     </script>
 @endpush
 

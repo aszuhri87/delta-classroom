@@ -18,20 +18,20 @@ class userSeed extends Seeder
         //     'name' => 'Group 1',
         // ]);
 
-        // \App\Models\User::create([
-        //     'name' => 'Admin',
-        //     'email' => 'admin@example.com',
-        //     'password' => Hash::make('123456'),
-        // ]);
-
-        \App\Models\Student::create([
-            'group_id' => '1',
-            'name' => 'denis',
-            'number' => '1',
-            'email' => 'denis@example.com',
+        \App\Models\User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
             'password' => Hash::make('123456'),
-            'phone_number' => '984937392',
-            'school_origin' => 'UTY',
         ]);
+
+        // \App\Models\Student::create([
+        //     'group_id' => '1',
+        //     'name' => 'denis',
+        //     'number' => '1',
+        //     'email' => 'denis@example.com',
+        //     'password' => Hash::make('123456'),
+        //     'phone_number' => '984937392',
+        //     'school_origin' => 'UTY',
+        // ]);
     }
 }

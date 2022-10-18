@@ -7,6 +7,9 @@
         <div class="d-flex justify-content-between mb-3">
             <h5>Student List</h5>
             <div>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importModal">
+                    Import
+                </button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
                     Add
                 </button>
@@ -30,7 +33,7 @@
                     <td class="text-center">{{$item->group_name}}</td>
                     <td class="text-center">{{$item->number}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0" href="{{url('/admin/student/'.$item->id)}}">Detail</a>
+                        <a class="btn btn-sm btn-success m-0" target="_blank" href="{{url('/admin/student/'.$item->id)}}">Detail</a>
                     </td>
                 </tr>
                 @endforeach
@@ -81,8 +84,8 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="phone_number">Password</label>
-                                <input type="password" required class="form-control" placeholder="Password" name="password" id="password">
+                                <label for="number-input">Date of birth</label>
+                                <input type="date" required name="birth" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="number-input">Number</label>
@@ -97,7 +100,34 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-save">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="{{url('admin/student/import')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Import Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="number-input">Excel File</label>
+                    <div class="custom-file mb-2">
+                        <input type="file" name="file" class="dropify" data-allowed-file-extensions="xls xlsx csv">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-save">Submit</button>
                 </div>
             </form>
         </div>
@@ -105,3 +135,29 @@
 </div>
 
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('.dropify').dropify();
+        });
+
+        $('.btn-save').click(function() {
+            $('.modal').modal('hide');
+
+            $.blockUI({
+                message:
+                '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+                css: {
+                backgroundColor: 'transparent',
+                color: '#fff',
+                border: '0'
+                },
+                overlayCSS: {
+                opacity: 0.5
+                },
+                timeout: 1000,
+            });
+            });
+    </script>
+@endpush

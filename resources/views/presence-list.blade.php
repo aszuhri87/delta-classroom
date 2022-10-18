@@ -90,7 +90,7 @@
 <script>
     $(document).ready(function() {
         $('.btn-save').click(function() {
-            // $('.modal').modal('hide');
+            $('.modal').modal('hide');
             $.blockUI({
                 message:
                 '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',

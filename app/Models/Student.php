@@ -21,5 +21,6 @@ class Student extends Authenticatable
         'password',
         'phone_number',
         'school_origin',
+        'birth',
     ];
 }

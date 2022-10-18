@@ -17,7 +17,9 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $student = Student::find(Auth::id())->first();
+        $student = Student::where('id', Auth::user()->id)->first();
+
+        // dd($student);
 
         $list = DB::table('tasks')
             ->select([

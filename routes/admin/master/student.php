@@ -15,4 +15,6 @@ Route::prefix('admin')->middleware(['admin-handling'])->group(function () {
     Route::get('student/download/{id}', [StudentController::class, 'download']);
 
     Route::get('student/delete/{id}', [StudentController::class, 'delete']);
+
+    Route::post('student/import', [StudentController::class, 'import']);
 });

@@ -34,9 +34,9 @@
                             <a type="button" class="btn-sm btn-primary edit-btn" data-toggle="modal" data-target="#editModal{{$classroom->id}}">
                                 Edit
                             </a>
-                            <a class="btn btn-sm btn-success m-0" href="{{url('/admin/master/presence/'.$classroom->id)}}">Presence List</a>
+                            <a class="btn btn-sm btn-success m-0" target="_blank" href="{{url('/admin/master/presence/'.$classroom->id)}}">Presence List</a>
 
-                            <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/classroom/delete/'.$classroom->id)}}">Delete</a>
+                            <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/master/classroom/delete/'.$classroom->id)}}">Delete</a>
                         </div>
                         <!-- Modal Edit-->
                         <div class="modal fade" id="editModal{{$classroom->id}}" tabindex="-1" aria-labelledby="editModalLabel{{$classroom->id}}" aria-hidden="true">
@@ -68,7 +68,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary btn-save">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -116,7 +116,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-save">Submit</button>
                 </div>
             </form>
         </div>
@@ -128,10 +128,27 @@
 @push('script')
 <script>
 $(document).ready(function() {
-    var data_unit = <?php echo json_encode($classroom)?>;
-    $(document).ready(function() {
-        $(document).on('click', '.edit-btn', function(event){
-            $('#form-edit').find('select[name="division"]').find('option[value="'+ data_unit.division+'"]').prop('selected', true);
+    var data_unit = <?php echo json_encode($list)?>;
+
+    $(document).on('click', '.edit-btn', function(event){
+        $('#form-edit').find('select[name="division"]').find('option[value="'+ data_unit.division+'"]').prop('selected', true);
+    });
+
+    $('.btn-save').click(function() {
+        $('.modal').modal('hide');
+
+        $.blockUI({
+            message:
+            '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+            css: {
+            backgroundColor: 'transparent',
+            color: '#fff',
+            border: '0'
+            },
+            overlayCSS: {
+            opacity: 0.5
+            },
+            timeout: 1000,
         });
     });
 });

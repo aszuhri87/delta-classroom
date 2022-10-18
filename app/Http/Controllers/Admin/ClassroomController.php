@@ -30,7 +30,7 @@ class ClassroomController extends Controller
         Classroom::create([
             'user_id' => Auth::guard('admin')->id(),
             'class_name' => $request->class_name,
-            'presence_code' => Str::random(5),
+            'presence_code' => mt_rand(10000, 99999),
             'division' => $request->division,
         ]);
 
@@ -42,7 +42,7 @@ class ClassroomController extends Controller
         Classroom::find($id)->update([
             'user_id' => Auth::guard('admin')->id(),
             'class_name' => $request->class_name,
-            'presence_code' => Str::random(5),
+            'presence_code' => mt_rand(10000, 99999),
             'division' => $request->division,
         ]);
 

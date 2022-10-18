@@ -16,7 +16,7 @@ class CreateAssignmentFilesTable extends Migration
         Schema::create('assignment_files', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('assignment_id');
-            $table->foreign('assignment_id')->references('id')->on('assignments');
+            $table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');
 
             $table->string('name');
             $table->string('file_path')->nullable();
