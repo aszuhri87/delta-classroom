@@ -30,7 +30,7 @@ class TasksController extends Controller
                         THEN 'Sudah Mengumpulkan'
                         ELSE 'Belum Mengumpulkan'
                     END status
-                ")
+                "),
             ])
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
@@ -58,6 +58,7 @@ class TasksController extends Controller
             ->where('tasks.id', $id)
             ->orderBy('tasks.created_at', 'desc')
             ->first();
+        $task->task_file = str_replace('storage/files/', '', $task->file_path);
 
         $assignment = DB::table('assignment_files')
             ->select([

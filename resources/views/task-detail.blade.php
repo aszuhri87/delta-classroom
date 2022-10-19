@@ -34,7 +34,7 @@
                     </tr>
                     <tr>
                         <th scope="col">Lampiran Tugas</th>
-                        <td scope="col"> <a href="{{url('/task/download/'.$task->id)}}"> {{$task->file_path}}</a></td>
+                        <td scope="col"> <a href="{{asset($task->file_path)}}"> {{$task->task_file}}</a></td>
                     </tr>
                 </tbody>
             </table>

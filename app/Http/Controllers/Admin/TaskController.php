@@ -75,6 +75,8 @@ class TaskController extends Controller
             ->orderBy('tasks.created_at', 'desc')
             ->first();
 
+        $task->task_file = str_replace('storage/files/', '', $task->file_path);
+
         $group = DB::table('groups')
             ->select([
                 'groups.*',
@@ -118,7 +120,7 @@ class TaskController extends Controller
             $name = str_replace(' ', '_', $request->name).'_'.date('Y-m-d_s').'_.'.$file->extension();
             $file->move(storage_path().'/app/public/files', $name);
 
-            $value = $name;
+            $value = 'storage/files/'.$name;
         } else {
             $value = $request->file_path;
         }
@@ -149,7 +151,7 @@ class TaskController extends Controller
             $name = str_replace(' ', '_', $request->name).'_'.date('Y-m-d_s').'_.'.$file->extension();
             $file->move(storage_path().'/app/public/files', $name);
 
-            $value = $name;
+            $value = 'storage/files/'.$name;
         } else {
             $value = $request->file_path;
         }

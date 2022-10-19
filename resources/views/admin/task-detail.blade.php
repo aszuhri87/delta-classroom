@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <th scope="col">File</th>
-                        <td scope="col"> <a target="_blank" href="{{url('/admin/task/download/'.$task->id)}}"> {{$task->file_path}}</a></td>
+                        <td scope="col"> <a target="_blank" href="{{asset($task->file_path)}}"> {{$task->task_file}}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Attachment : </label>
-                                                     <a target="_blank" href="{{url('/admin/task/download_assignment/'.$list->assignment_id)}}"> {{$list->assignment_name}}</a>
+                                                     <a target="_blank" href="{{asset($list->file_path)}}"> {{$list->assignment_name}}</a>
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Give Score</label>
@@ -111,7 +111,7 @@
                     </td>
                 </tr>
                 @endforeach
-            </tbody>
+            </tbody>z
         </table>
         <div class="mt-4 w-100">
             {{ $assignment->links() }}

@@ -19,7 +19,7 @@ class AssignmentsController extends Controller
             $name = str_replace('.'.$file->extension(), '_', str_replace(' ', '_', $file->getClientOriginalName())).'_'.date('Y-m-d_s').'.'.$file->extension();
             $file->move(storage_path().'/app/public/assignment_files/', $name);
 
-            $value = $name;
+            $value = 'storage/assignment_files/';
         } else {
             $value = $request->file_path;
         }
@@ -32,8 +32,8 @@ class AssignmentsController extends Controller
 
         AssignmentFile::create([
             'assignment_id' => $assignment->id,
-            'name' => $value,
-            'file_path' => storage_path().'/app/public/assignment_files/',
+            'name' => $name,
+            'file_path' => $value,
         ]);
 
         return Redirect::back();
@@ -47,7 +47,7 @@ class AssignmentsController extends Controller
             $name = str_replace('.'.$file->extension(), '_', str_replace(' ', '_', $file->getClientOriginalName())).'_'.date('Y-m-d_s').'.'.$file->extension();
             $file->move(storage_path().'/app/public/assignment_files/', $name);
 
-            $value = $name;
+            $value = 'storage/assignment_files/';
         } else {
             $value = $request->file_path;
         }
@@ -61,8 +61,8 @@ class AssignmentsController extends Controller
         $assignment_file = AssignmentFile::where('assignment_id', $id);
         $assignment_file->update([
             'assignment_id' => $assignment->id,
-            'name' => $value,
-            'file_path' => storage_path().'/app/public/assignment_files/',
+            'name' => $name,
+            'file_path' => $value,
         ]);
 
         return Redirect::back();
