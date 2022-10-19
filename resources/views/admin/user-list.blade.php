@@ -23,6 +23,7 @@
             </thead>
             <tbody>
                 @foreach ($list as $index => $item)
+                @if (Auth::guard('admin')->user()->name == 'Admin')
                 <tr>
                     <th scope="row" class="text-center">{{$index + 1}}</th>
                     <td>{{$item->name}}</td>
@@ -32,6 +33,19 @@
                             href="{{url('/admin/master/user/'.$item->id)}}">Detail</a>
                     </td>
                 </tr>
+                @else
+                    @if ($item->name != 'Admin')
+                    <tr>
+                        <th scope="row" class="text-center">{{$index + 1}}</th>
+                        <td>{{$item->name}}</td>
+                        <td class="text-center">{{$item->email}}</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-success m-0"
+                                href="{{url('/admin/master/user/'.$item->id)}}">Detail</a>
+                        </td>
+                    </tr>
+                    @endif
+                @endif
                 @endforeach
             </tbody>
         </table>

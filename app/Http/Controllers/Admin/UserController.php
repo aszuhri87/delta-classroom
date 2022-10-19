@@ -39,7 +39,9 @@ class UserController extends Controller
             'users.name',
             'users.email',
             'users.division_id',
+            'divisions.name as division',
         ])
+        ->leftJoin('divisions', 'divisions.id', 'users.division_id')
         ->where('users.id', $id)
         ->whereNull('users.deleted_at')
         ->first();

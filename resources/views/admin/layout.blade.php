@@ -37,12 +37,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('admin/master/classroom')}}">Classroom</a>
                     </li>
+                    @if (Auth::guard('admin')->user()->name == 'Admin')
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('admin/master/group')}}">Group</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('admin/master/division')}}">Division</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('admin/master/user')}}">User</a>
                     </li>
