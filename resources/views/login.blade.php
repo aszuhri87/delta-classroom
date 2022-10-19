@@ -13,18 +13,53 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+    <style>
+        .hero{
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(180deg, #0084d4 0%, #02539e 100%);
+            position: relative;
+        }
+
+        .img-left {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 100vh;
+        }
+
+        .img-right {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            transform: rotate(180deg);
+            height: 100vh;
+        }
+
+        .card{
+            border: none;
+        }
+
+        .btn-save{
+            background-color: #0084d4 !important;
+        }
+    </style>
     <title>DELTA</title>
 </head>
 
 <body>
 
-    <div class="d-flex justify-content-center align-items-center" style="width: 100vw; height: 100vh;">
+    <div class="hero d-flex justify-content-center align-items-center">
+        <img src="{{asset('bg_layout.svg')}}" class="img-left" />
+        <img src="{{asset('bg_layout.svg')}}" class="img-right" />
+
         <div class="" width="400px">
-            <center>
-                <img src="{{asset('logo/logo.png')}}" class="mb-4" width="250px" alt="">
-            </center>
             <div class="card m-3">
                 <div class="card-body" style="width:320px">
+                    <center>
+                        <img src="{{asset('logo/logo.png')}}" width="250px" alt="">
+                    </center>
+                    <hr>
                     @if($errors->has('message'))
                     <div class="alert alert-danger mt-3" style="text-align: left;" role="alert">
                         {{ $errors->first('message') }}

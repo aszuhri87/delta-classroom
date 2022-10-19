@@ -11,12 +11,32 @@
     <link rel="stylesheet" href="{{asset('lib/prism.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/dropify.css')}}" />
 
+    <style>
+        .img-left {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 100vh;
+            opacity: 0.5;
+        }
+
+        .card-shadow{
+            border: none !important;
+            filter: drop-shadow(2px 4px 20px rgba(2, 83, 158, 0.2));
+        }
+
+        nav{
+            filter: drop-shadow(2px 4px 20px rgba(2, 83, 158, 0.2)) !important;
+        }
+    </style>
+
     <title>DELTA</title>
 
     @stack('style')
 </head>
 
 <body>
+    <img src="{{asset('bg_layout.svg')}}" class="img-left" />
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -38,7 +58,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Hi, {{Auth::user()->name}}
+                            Hi, {{strtok(Auth::user()->name, " ")}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{url('logout')}}">Logout</a>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="card w-100 mb-5">
+<div class="card w-100 mb-5 card-shadow">
     <div class="card-body">
         <div class="d-flex justify-content-between mb-3">
             <h5>Daftar Tugas</h5>

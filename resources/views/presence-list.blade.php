@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="card w-100 mb-5">
+<div class="card card-shadow w-100 mb-5">
     <div class="card-body">
         @if($errors->has('message'))
             <div class="alert alert-danger mt-3" style="text-align: left;" role="alert">
@@ -22,38 +22,13 @@
                     Presensi sekarang
                 </button>
             </div>
-            <!-- Modal Edit-->
-            <div class="modal fade" id="presenceModal" tabindex="-1" aria-labelledby="presenceModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="{{url('/classroom/presence')}}" id="form-edit" method="post">
-                            @csrf
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="presenceModalLabel"><i class="fa fa-address-card" aria-hidden="true"></i>Masukkan Kode Presensi</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="text" required class="form-control" placeholder="Kode Presensi" name="presence_code" id="presence_code">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary btn-save">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
         <div class="mt-4 w-100">
             {{ $list->links() }}
         </div>
     </div>
 </div>
 
-<div class="card w-100 mb-5">
+<div class="card card-shadow w-100 mb-5">
     <div class="card-body">
         <div class="d-flex justify-content-between mb-3">
             <h5>Histori Presensi</h5>
@@ -86,6 +61,30 @@
     </div>
 </div>
 
+<div class="modal fade" id="presenceModal" tabindex="-1" aria-labelledby="presenceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{url('/classroom/presence')}}" id="form-edit" method="post">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="presenceModalLabel"><i class="fa fa-address-card" aria-hidden="true"></i>Masukan Kode Presensi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" required class="form-control" placeholder="Kode Presensi" name="presence_code" id="presence_code">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-save">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('script')
