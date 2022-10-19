@@ -7,7 +7,7 @@
         <button type="button" class="btn btn-sm edit-btn btn-primary" data-toggle="modal" data-target="#editModal">
             Edit
         </button>
-        <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/master/user/delete/'.$user->id)}}">Delete</a>
+        @if (Auth::guard('admin')->user()->division_id == null) <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/master/user/delete/'.$user->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a> @endif
     </div>
 </div>
 <div class="print-place">
@@ -58,6 +58,15 @@
                         <input type="password" class="form-control" placeholder="Password" name="password"
                             id="password">
                     </div>
+                    <div class="form-group">
+                        <label for="division">Division</label>
+                        <select class="form-control" name="division" id="division">
+                            <option value="">-- Select Division --</option>
+                                @foreach ($division as $g)
+                                    <option value="{{$g->id}}" data-id="{{$g->id}}"> {{$g->name}}</option>
+                                @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -72,6 +81,10 @@
 @push('script')
 <script>
     $(document).ready(function () {
+        var data_unit = <?php echo json_encode($user)?>;
+
+        $('#form-edit').find('select[name="division"]').find('option[value="'+ data_unit.division_id+'"]').prop('selected', true);
+
         $('.btn-save').click(function () {
             $.blockUI({
                 message: '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',

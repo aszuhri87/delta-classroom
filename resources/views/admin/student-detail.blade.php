@@ -7,7 +7,7 @@
         <button type="button" class="btn btn-sm edit-btn btn-primary" data-toggle="modal" data-target="#editModal">
             Edit
         </button>
-        <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/student/delete/'.$student->id)}}">Delete</a>
+        <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/student/delete/'.$student->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
     </div>
 </div>
 <div class="print-place">
@@ -123,7 +123,7 @@
                         </div>
                         <div class="form-group">
                             <label for="number-input">Date of birth</label>
-                            <input type="date" name="birth" class="form-control value="{{$student->birth}}"">
+                            <input type="date" name="birth" class="form-control" value="{{$student->birth}}">
                         </div>
                         <div class="form-group">
                             <label for="number-input">Number</label>
@@ -153,6 +153,7 @@
 
         $(document).on('click', '.edit-btn', function(event){
             $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
+            // $('#form-edit').find('input[name="birth" type="date"]').val(data_unit.birth);
         });
 
         $('.btn-save').click(function() {

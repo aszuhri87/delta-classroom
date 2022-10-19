@@ -16,5 +16,6 @@ class Task extends Model
         'detail',
         'file_path',
         'expired_at',
+        'division_id',
     ];
 }

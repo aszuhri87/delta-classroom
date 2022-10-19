@@ -18,12 +18,17 @@ class UserController extends Controller
                 'users.id',
                 'users.name',
                 'users.email',
+                'users.division_id',
             ])
             ->orderBy('users.created_at', 'desc')
             ->whereNull('users.deleted_at')
             ->paginate(10);
 
-        return view('admin.user-list', compact('list'));
+        $division = DB::table('divisions')
+            ->select(['*'])
+            ->get();
+
+        return view('admin.user-list', compact('list', 'division'));
     }
 
     public function show(Request $request, $id)
@@ -33,6 +38,7 @@ class UserController extends Controller
             'users.id',
             'users.name',
             'users.email',
+            'users.division_id',
         ])
         ->where('users.id', $id)
         ->whereNull('users.deleted_at')
@@ -61,7 +67,11 @@ class UserController extends Controller
         ->whereNull('tasks.deleted_at')
         ->paginate(10);
 
-        return view('admin.user-detail', compact('user', 'classroom', 'task'));
+        $division = DB::table('divisions')
+            ->select(['*'])
+            ->get();
+
+        return view('admin.user-detail', compact('user', 'classroom', 'task', 'division'));
     }
 
     public function store(Request $request)
@@ -72,6 +82,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $value,
+            'division_id' => $request->division,
         ]);
 
         return Redirect::back();
@@ -84,6 +95,7 @@ class UserController extends Controller
             'name' => $request->name ? $request->name : $edit->name,
             'email' => $request->email ? $request->email : $edit->email,
             'password' => Hash::make($request->new_password) ? Hash::make($request->new_password) : $edit->password,
+            'division_id' => $request->division ? $request->division : $edit->division_id,
         ]);
 
         return Redirect::back();

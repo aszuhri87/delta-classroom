@@ -34,9 +34,9 @@
                     <td class="text-center">{{$item->task_name}}</td>
                     <td class="text-center">{{$item->expired_at}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0" target="_blank"
+                        <a class="btn btn-sm btn-success m-0"
                             href="{{url('/admin/task/'.$item->id)}}">Detail</a>
-                        <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/task/delete/'.$item->id)}}">Delete</a>
+                        <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/task/delete/'.$item->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                     </td>
                 </tr>
                 @endforeach
@@ -74,6 +74,17 @@
                             @endforeach
                         </select>
                     </div>
+                    @if (Auth::guard('admin')->user()->division_id == null)
+                    <div class="form-group">
+                        <label for="division">Division</label>
+                        <select class="form-control" name="division" id="division">
+                            <option value="">-- Select Division --</option>
+                                @foreach ($division as $g)
+                                    <option value="{{$g->id}}" data-id="{{$g->id}}"> {{$g->name}}</option>
+                                @endforeach
+                        </select>
+                    </div>
+                    @endif
                     <div class="form-group">
                         <label for="detail">Detail</label>
                         <textarea name="detail" required class="form-control" placeholder="Write here ..." id="detail"

@@ -17,9 +17,10 @@ class CreateClassroomsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('division_id');
+            $table->foreign('division_id')->references('id')->on('divisions')->onDelete('cascade');
             $table->string('class_name');
             $table->string('presence_code');
-            $table->string('division');
             $table->timestamps();
             $table->softDeletes();
         });

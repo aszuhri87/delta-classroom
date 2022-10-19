@@ -15,7 +15,21 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        $list = DB::table('tasks')
+        if (Auth::guard('admin')->user()->division_id != null) {
+            $list = DB::table('tasks')
+            ->select([
+                'tasks.*',
+                'tasks.name as task_name',
+                'users.name as teacher_name',
+                'groups.name as group_name',
+            ])
+            ->leftJoin('users', 'users.id', 'tasks.user_id')
+            ->leftJoin('groups', 'groups.id', 'tasks.group_id')
+            ->orderBy('tasks.created_at', 'desc')
+            ->where('tasks.division_id', Auth::guard('admin')->user()->division_id)
+            ->paginate(10);
+        } else {
+            $list = DB::table('tasks')
             ->select([
                 'tasks.*',
                 'tasks.name as task_name',
@@ -26,6 +40,7 @@ class TaskController extends Controller
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
             ->orderBy('tasks.created_at', 'desc')
             ->paginate(10);
+        }
 
         $group = DB::table('groups')
             ->select([
@@ -34,7 +49,11 @@ class TaskController extends Controller
             ->whereNull('deleted_at')
             ->get();
 
-        return view('admin.task-list', compact('list', 'group'));
+        $division = DB::table('divisions')
+            ->select(['*'])
+            ->get();
+
+        return view('admin.task-list', compact('list', 'group', 'division'));
     }
 
     public function show(Request $request, $id)
@@ -46,9 +65,12 @@ class TaskController extends Controller
                 'users.name as teacher_name',
                 'groups.name as group_name',
                 'groups.id as group_id',
+                'divisions.name as division',
+                'tasks.division_id',
             ])
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
+            ->leftJoin('divisions', 'divisions.id', 'tasks.division_id')
             ->where('tasks.id', $id)
             ->orderBy('tasks.created_at', 'desc')
             ->first();
@@ -82,7 +104,11 @@ class TaskController extends Controller
         ->orderBy('assignments.created_at', 'desc')
         ->paginate(10);
 
-        return view('admin.task-detail', compact('task', 'group', 'classroom', 'assignment'));
+        $division = DB::table('divisions')
+        ->select(['*'])
+        ->get();
+
+        return view('admin.task-detail', compact('task', 'group', 'classroom', 'assignment', 'division'));
     }
 
     public function store(Request $request)
@@ -97,6 +123,12 @@ class TaskController extends Controller
             $value = $request->file_path;
         }
 
+        if ($request->division) {
+            $division = $request->division;
+        } else {
+            $division = Auth::guard('admin')->user()->division_id;
+        }
+
         Task::create([
             'user_id' => Auth::guard('admin')->id(),
             'group_id' => $request->group,
@@ -104,6 +136,7 @@ class TaskController extends Controller
             'detail' => $request->detail,
             'file_path' => $value,
             'expired_at' => $request->expired_at,
+            'division_id' => $division,
         ]);
 
         return Redirect::back();
@@ -121,6 +154,12 @@ class TaskController extends Controller
             $value = $request->file_path;
         }
 
+        if ($request->division) {
+            $division = $request->division;
+        } else {
+            $division = Auth::guard('admin')->user()->division_id;
+        }
+
         Task::find($id)->update([
             'user_id' => Auth::guard('admin')->id(),
             'group_id' => $request->group,
@@ -128,6 +167,7 @@ class TaskController extends Controller
             'detail' => $request->detail,
             'file_path' => $value,
             'expired_at' => $request->expired_at,
+            'division_id' => $division,
         ]);
 
         return Redirect::back();

@@ -34,9 +34,9 @@
                             <a type="button" class="btn-sm btn-primary edit-btn" data-toggle="modal" data-target="#editModal{{$classroom->id}}">
                                 Edit
                             </a>
-                            <a class="btn btn-sm btn-success m-0" target="_blank" href="{{url('/admin/master/presence/'.$classroom->id)}}">Presence List</a>
+                            <a class="btn btn-sm btn-success m-0"  href="{{url('/admin/master/presence/'.$classroom->id)}}">Presence List</a>
 
-                            <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/master/classroom/delete/'.$classroom->id)}}">Delete</a>
+                            <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/master/classroom/delete/'.$classroom->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                         </div>
                         <!-- Modal Edit-->
                         <div class="modal fade" id="editModal{{$classroom->id}}" tabindex="-1" aria-labelledby="editModalLabel{{$classroom->id}}" aria-hidden="true">
@@ -55,16 +55,17 @@
                                                 <label for="number-input">Name</label>
                                                 <input type="text" required class="form-control" placeholder="Class Name" name="class_name" id="class_name" value="{{$classroom->class_name}}">
                                             </div>
+                                            @if (Auth::guard('admin')->user()->division_id == null)
                                             <div class="form-group">
                                                 <label for="division">Division</label>
-                                                <select class="form-control" name="division" id="division" value="{{$classroom->division}}">
+                                                <select class="form-control" name="division" id="division">
                                                     <option value="">-- Select Division --</option>
-                                                    <option value="Web"> Web </option>
-                                                    <option value="A.I"> A.I </option>
-                                                    <option value="Mobile"> Mobile </option>
-                                                    <option value="Security"> Security </option>
+                                                        @foreach ($division as $g)
+                                                            <option value="{{$g->id}}" data-id="{{$g->id}}"> {{$g->name}}</option>
+                                                        @endforeach
                                                 </select>
                                             </div>
+                                            @endif
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -103,16 +104,17 @@
                         <label for="number-input">Name</label>
                         <input type="text" required class="form-control" placeholder="Class Name" name="class_name" id="class_name">
                     </div>
+                    @if (Auth::guard('admin')->user()->division_id == null)
                     <div class="form-group">
                         <label for="division">Division</label>
                         <select class="form-control" name="division" id="division">
                             <option value="">-- Select Division --</option>
-                            <option value="Web"> Web </option>
-                            <option value="A.I"> A.I </option>
-                            <option value="Mobile"> Mobile </option>
-                            <option value="Security"> Security </option>
+                                @foreach ($division as $g)
+                                    <option value="{{$g->id}}" data-id="{{$g->id}}"> {{$g->name}}</option>
+                                @endforeach
                         </select>
                     </div>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -28,7 +28,7 @@
                     <td>{{$item->name}}</td>
                     <td class="text-center">{{$item->email}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0" target="_blank"
+                        <a class="btn btn-sm btn-success m-0"
                             href="{{url('/admin/master/user/'.$item->id)}}">Detail</a>
                     </td>
                 </tr>
@@ -67,6 +67,15 @@
                         <label for="phone_number">Password</label>
                         <input type="password" required class="form-control" placeholder="Password" name="password"
                             id="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="division">Division</label>
+                        <select class="form-control" name="division" id="division">
+                            <option value="">-- Select Division --</option>
+                                @foreach ($division as $g)
+                                    <option value="{{$g->id}}" data-id="{{$g->id}}"> {{$g->name}}</option>
+                                @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -21,6 +21,9 @@ class CreateTasksTable extends Migration
             $table->unsignedBigInteger('group_id')->nullable();
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
 
+            $table->unsignedBigInteger('division_id');
+            $table->foreign('division_id')->references('id')->on('divisions')->onDelete('cascade');
+
             $table->string('name');
             $table->string('detail')->nullable();
             $table->string('file_path')->nullable();

@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <th scope="col">File</th>
-                        <td scope="col"> <a href="{{url('/admin/task/download/'.$task->id)}}"> {{$task->file_path}}</a></td>
+                        <td scope="col"> <a target="_blank" href="{{url('/admin/task/download/'.$task->id)}}"> {{$task->file_path}}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Attachment : </label>
-                                                     <a href="{{url('/admin/task/download_assignment/'.$list->assignment_id)}}"> {{$list->assignment_name}}</a>
+                                                     <a target="_blank" href="{{url('/admin/task/download_assignment/'.$list->assignment_id)}}"> {{$list->assignment_name}}</a>
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Give Score</label>
@@ -138,6 +138,17 @@
                         <label for="number-input">Name</label>
                         <input type="text" required class="form-control" placeholder="Task Name" name="name" id="name" value="{{$task->task_name}}">
                     </div>
+                    @if (Auth::guard('admin')->user()->division_id == null)
+                    <div class="form-group">
+                        <label for="division">Division</label>
+                        <select class="form-control" name="division" id="division">
+                            <option value="">-- Select Division --</option>
+                                @foreach ($division as $g)
+                                    <option value="{{$g->id}}" data-id="{{$g->id}}"> {{$g->name}}</option>
+                                @endforeach
+                        </select>
+                    </div>
+                    @endif
                     <div class="form-group">
                         <label for="group">Group</label>
                         <select class="form-control" name="group" id="group">
@@ -181,6 +192,7 @@
         $('.dropify').dropify();
 
         $(document).on('click', '.edit-btn', function(event){
+            $('#form-edit').find('select[name="division"]').find('option[value="'+ data_unit.division+'"]').prop('selected', true);
             $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
             $('#form-edit').find('textarea[name="detail"]').val(data_unit.detail);
             $('#form-edit').find('input[name="file_path", type="file"]').val(data_unit.file_path);
