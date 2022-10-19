@@ -17,9 +17,10 @@ class PresencesController extends Controller
             ->select([
                 'classrooms.*',
                 'users.name as teacher_name',
+                'divisions.name as division',
             ])
+            ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
             ->leftJoin('users', 'users.id', 'classrooms.user_id')
-            ->orderBy('classrooms.division', 'desc')
             ->paginate(10);
 
         $history = DB::table('presences')
@@ -27,10 +28,11 @@ class PresencesController extends Controller
                 'presences.student_id',
                 'presences.classroom_id',
                 'presences.datetime',
+                'divisions.name as division',
                 'classrooms.*',
-                DB::raw('COUNT(presences.student_id) as presence_total'),
-            ])->leftJoin('classrooms', 'classrooms.id', 'presences.classroom_id')
-            ->groupBy('presences.student_id', 'presences.classroom_id', 'classrooms.id', 'presences.datetime')
+            ])
+            ->leftJoin('classrooms', 'classrooms.id', 'presences.classroom_id')
+            ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
             ->whereNull('presences.deleted_at')
             ->where('presences.student_id', Auth::id())
             ->orderBy('presences.datetime', 'desc')
@@ -50,7 +52,7 @@ class PresencesController extends Controller
         $presence = Presence::where('classroom_id', $class->id)->first();
 
         if ($presence) {
-            return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Anda sudah masuk ke kelas ini'])->withInput();
+            return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Anda presensi di kelas ini'])->withInput();
         }
 
         if ($request->presence_code == $class->presence_code) {

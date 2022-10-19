@@ -192,7 +192,7 @@
         $('.dropify').dropify();
 
         $(document).on('click', '.edit-btn', function(event){
-            $('#form-edit').find('select[name="division"]').find('option[value="'+ data_unit.division+'"]').prop('selected', true);
+            $('#form-edit').find('select[name="division"]').find('option[value="'+ data_unit.division_id+'"]').prop('selected', true);
             $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
             $('#form-edit').find('textarea[name="detail"]').val(data_unit.detail);
             $('#form-edit').find('input[name="file_path", type="file"]').val(data_unit.file_path);

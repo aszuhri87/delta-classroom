@@ -12,9 +12,8 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">#</th>
-                        <th scope="col">Nama Pengajar</th>
-                        <th scope="col" class="text-center">Group</th>
-                        <th scope="col" class="text-center">Tugas</th>
+                        <th scope="col">Tugas</th>
+                        <th scope="col" class="text-center">Status</th>
                         <th scope="col" class="text-center">Tanggal Berakhir</th>
                         <th scope="col" class="text-center">Aksi</th>
                     </tr>
@@ -23,9 +22,8 @@
                     @foreach ($list as $index => $item)
                     <tr>
                         <th scope="row" class="text-center">{{$index + 1}}</th>
-                        <td>{{$item->teacher_name}}</td>
-                        <td class="text-center">{{$item->group_name}}</td>
-                        <td class="text-center">{{$item->task_name}}</td>
+                        <td >{{$item->task_name}}</td>
+                        <td class="text-center @if($item->status != 'Sudah Mengumpulkan') text-danger @endif">{{$item->status}}</td>
                         <td class="text-center">{{$item->expired_at}}</td>
                         <td class="text-center">
                             <a class="btn btn-sm btn-success m-0" href="{{url('task/'.$item->id)}}">Detail</a>

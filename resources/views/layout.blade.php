@@ -55,15 +55,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('presence')}}">Presensi</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Hi, {{strtok(Auth::user()->name, " ")}}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{url('profile')}}">Profile</a>
-                            <a class="dropdown-item" href="{{url('logout')}}">Logout</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('profile')}}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{url('logout')}}" onclick="return confirm('Are you sure to logout?');">Logout</a>
                     </li>
                 </ul>
             </div>

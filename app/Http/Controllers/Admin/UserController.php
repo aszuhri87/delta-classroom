@@ -49,8 +49,9 @@ class UserController extends Controller
             'classrooms.id',
             'classrooms.class_name',
             'classrooms.presence_code',
-            'classrooms.division',
+            'divisions.name as division',
         ])
+        ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
         ->where('classrooms.user_id', $id)
         ->whereNull('classrooms.deleted_at')
         ->paginate(10);

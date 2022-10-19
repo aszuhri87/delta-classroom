@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <a href="{{url('dashboard')}}" class="btn btn-danger m-0">Kembali</a>
+    <a href="{{url('dashboard')}}" style="z-index: 99;" class="btn btn-danger m-0">Kembali</a>
 </div>
     <div class="card w-100 mb-5" >
         <div class="card-body">
@@ -10,8 +10,8 @@
             <table class="table mb-0 table-bordered" width="100%">
                 <tbody>
                     <tr>
-                        <th scope="col">Nama Tugas</th>
-                        <td scope="col">{{ $task->task_name }}</td>
+                        <th width="40%" scope="col">Nama Tugas</th>
+                        <td width="60%" scope="col">{{ $task->task_name }}</td>
                     </tr>
                     <tr>
                         <th scope="col">Group</th>
@@ -122,8 +122,8 @@
             <table class="table mb-0 table-bordered" width="100%">
                 <tbody>
                     <tr>
-                        <th scope="col">File Tugas</th>
-                        <td scope="col"> <a href="{{url('/assignment/download/'.$assignment->id)}}"> {{$assignment->assign_name}}</a></td>
+                        <th width="40%" scope="col">File Tugas</th>
+                        <td width="60%" scope="col"> <a href="{{url('/assignment/download/'.$assignment->id)}}"> {{$assignment->assign_name}}</a></td>
                     </tr>
                     <tr>
                         <th scope="col">Tanggal Submit</th>
@@ -144,8 +144,8 @@
 
             <table class="table mb-0 table-bordered mt-5" width="100%">
                 <tr>
-                    <th scope="col">Nilai</th>
-                    <td scope="col">{{ $assignment->score }}</td>
+                    <th width="40%" scope="col">Nilai</th>
+                    <td width="60%" scope="col">{{ $assignment->score }}</td>
                 </tr>
             </table>
         </div>

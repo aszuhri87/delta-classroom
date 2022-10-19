@@ -22,7 +22,6 @@ class ClassroomController extends Controller
             ])
             ->leftJoin('users', 'users.id', 'classrooms.user_id')
             ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
-            ->orderBy('classrooms.division', 'desc')
             ->where('classrooms.division_id', Auth::guard('admin')->user()->division_id)
             ->paginate(10);
         } else {
@@ -34,7 +33,6 @@ class ClassroomController extends Controller
             ])
             ->leftJoin('users', 'users.id', 'classrooms.user_id')
             ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
-            ->orderBy('classrooms.division', 'desc')
             ->paginate(10);
         }
 

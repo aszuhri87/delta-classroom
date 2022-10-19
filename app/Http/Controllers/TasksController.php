@@ -25,9 +25,16 @@ class TasksController extends Controller
                 'tasks.name as task_name',
                 'users.name as teacher_name',
                 'groups.name as group_name',
+                DB::raw("
+                    CASE WHEN assignments.id IS NOT NULL
+                        THEN 'Sudah Mengumpulkan'
+                        ELSE 'Belum Mengumpulkan'
+                    END status
+                ")
             ])
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
+            ->leftJoin('assignments', 'assignments.task_id', 'tasks.id')
             ->where('tasks.group_id', $student->group_id)
             ->whereNull('tasks.deleted_at')
             ->orderBy('tasks.created_at', 'desc')

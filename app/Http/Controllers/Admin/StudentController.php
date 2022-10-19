@@ -69,10 +69,16 @@ class StudentController extends Controller
             'presences.datetime',
             'classrooms.*',
             DB::raw('COUNT(presences.student_id) as presence_total'),
-        ])->leftJoin('classrooms', 'classrooms.id', 'presences.classroom_id')
+        ])
+        ->leftJoin('classrooms', 'classrooms.id', 'presences.classroom_id')
         ->groupBy('presences.student_id', 'presences.classroom_id', 'classrooms.id', 'presences.datetime')
         ->whereNull('presences.deleted_at')
         ->where('presences.student_id', $id)
+        ->where(function($query){
+            if(\Auth::guard('admin')->user()->division_id){
+                $query->where('classrooms.division_id', \Auth::guard('admin')->user()->division_id);
+            }
+        })
         ->orderBy('presences.datetime', 'desc')
         ->paginate(10);
 
