@@ -59,10 +59,7 @@
                 <tr>
                     <th scope="col" class="text-center">#</th>
                     <th scope="col">Class Name</th>
-                    <th scope="col" class="text-center">Division</th>
-                    <th scope="col" class="text-center">Presence Total</th>
                     <th scope="col" class="text-center">Presence Date</th>
-                    {{-- <th scope="col" class="text-center">Action</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -70,8 +67,6 @@
                 <tr>
                     <th scope="row" class="text-center">{{$index + 1}}</th>
                     <td>{{$list->class_name}}</td>
-                    <td class="text-center">{{$list->division}}</td>
-                    <td class="text-center">{{$list->presence_total}}</td>
                     <td class="text-center">{{$list->datetime}}</td>
                 </tr>
                 @endforeach
