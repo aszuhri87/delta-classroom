@@ -37,7 +37,9 @@
                                 <label for="exampleInputEmail1">Password</label>
                                 <input type="password" name="password" class="form-control" placeholder="Passsword">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-save">Submit</button>
+                            <center>
+                                <button type="submit" class="btn btn-primary btn-save">Login</button>
+                            </center>
                         </form>
                     </div>
                 </div>
