@@ -34,7 +34,8 @@
                     <td class="text-center">{{$item->task_name}}</td>
                     <td class="text-center">{{$item->expired_at}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0" target="_blank" href="{{url('/admin/task/'.$item->id)}}">Detail</a>
+                        <a class="btn btn-sm btn-success m-0" target="_blank"
+                            href="{{url('/admin/task/'.$item->id)}}">Detail</a>
                         <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/task/delete/'.$item->id)}}">Delete</a>
                     </td>
                 </tr>
@@ -68,14 +69,15 @@
                         <label for="group">Group</label>
                         <select class="form-control" name="group" id="group">
                             <option value="">-- Select Group --</option>
-                                @foreach ($group as $g)
-                                    <option value="{{$g->id}}" data-id="{{$g->id}}"> {{$g->name}}</option>
-                                @endforeach
+                            @foreach ($group as $g)
+                            <option value="{{$g->id}}" data-id="{{$g->id}}"> {{$g->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="detail">Detail</label>
-                        <textarea name="detail" required class="form-control" placeholder="Write here ..." id="detail" rows="3"></textarea>
+                        <textarea name="detail" required class="form-control" placeholder="Write here ..." id="detail"
+                            rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="number-input">Expired at</label>
@@ -98,27 +100,26 @@
 @endsection
 
 @push('script')
-    <script>
-        $(document).ready(function() {
-            $('.dropify').dropify();
-        });
+<script>
+    $(document).ready(function () {
+        $('.dropify').dropify();
 
-        $('.btn-save').click(function() {
-            $('.modal').modal('hide');
-
+        $('.btn-save').click(function () {
             $.blockUI({
-                message:
-                '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+                message: '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
                 css: {
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: '0'
+                    backgroundColor: 'transparent',
+                    color: '#fff',
+                    border: '0'
                 },
                 overlayCSS: {
-                opacity: 0.5
+                    opacity: 0.5
                 },
                 timeout: 1000,
+                baseZ: 2000
             });
-            });
-    </script>
+        });
+    });
+
+</script>
 @endpush

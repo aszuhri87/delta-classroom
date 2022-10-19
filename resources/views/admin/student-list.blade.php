@@ -140,24 +140,23 @@
     <script>
         $(document).ready(function() {
             $('.dropify').dropify();
+
+            $('.btn-save').click(function() {
+                $.blockUI({
+                    message:
+                    '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+                    css: {
+                    backgroundColor: 'transparent',
+                    color: '#fff',
+                    border: '0'
+                    },
+                    overlayCSS: {
+                    opacity: 0.5
+                    },
+                    timeout: 1000,
+                    baseZ: 2000
+                });
+            });
         });
-
-        $('.btn-save').click(function() {
-            $('.modal').modal('hide');
-
-            $.blockUI({
-                message:
-                '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
-                css: {
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: '0'
-                },
-                overlayCSS: {
-                opacity: 0.5
-                },
-                timeout: 1000,
-            });
-            });
     </script>
 @endpush

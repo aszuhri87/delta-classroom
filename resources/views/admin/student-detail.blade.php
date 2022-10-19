@@ -128,7 +128,7 @@
                         </div>
                         <div class="form-group">
                             <label for="number-input">Date of birth</label>
-                            <input type="date" required name="birth" class="form-control value="{{$student->birth}}"">
+                            <input type="date" name="birth" class="form-control value="{{$student->birth}}"">
                         </div>
                         <div class="form-group">
                             <label for="number-input">Number</label>
@@ -155,15 +155,12 @@
 <script>
     $(document).ready(function() {
         var data_unit = <?php echo json_encode($student)?>;
-        $(document).ready(function() {
-            $(document).on('click', '.edit-btn', function(event){
-                $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
-            });
+
+        $(document).on('click', '.edit-btn', function(event){
+            $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
         });
 
         $('.btn-save').click(function() {
-            $('.modal').modal('hide');
-
             $.blockUI({
                 message:
                 '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
@@ -176,11 +173,10 @@
                 opacity: 0.5
                 },
                 timeout: 1000,
+                baseZ: 2000
             });
         });
     });
-
-
-    </script>
+</script>
 @endpush
 

@@ -58,6 +58,7 @@
         <div class="d-flex justify-content-between mb-3">
             <h5>Histori Presensi</h5>
         </div>
+        <div class="table-responsive">
         <table class="table mb-0 table-bordered" width="100%">
             <thead>
                 <tr>
@@ -78,6 +79,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
         <div class="mt-4 w-100">
             {{ $history->links() }}
         </div>
@@ -90,7 +92,6 @@
 <script>
     $(document).ready(function() {
         $('.btn-save').click(function() {
-            $('.modal').modal('hide');
             $.blockUI({
                 message:
                 '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
@@ -103,6 +104,7 @@
                 opacity: 0.5
                 },
                 timeout: 1000,
+                baseZ: 2000
             });
         });
     });

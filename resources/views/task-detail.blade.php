@@ -6,6 +6,7 @@
 </div>
     <div class="card w-100 mb-5" >
         <div class="card-body">
+        <div class="table-responsive">
             <table class="table mb-0 table-bordered" width="100%">
                 <tbody>
                     <tr>
@@ -37,6 +38,7 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
             <br>
             <div>
                 @if (!$assignment)
@@ -116,6 +118,7 @@
 <div class="assignment-place">
     <div class="card w-100 mb-5" >
         <div class="card-body">
+        <div class="table-responsive">
             <table class="table mb-0 table-bordered" width="100%">
                 <tbody>
                     <tr>
@@ -146,6 +149,7 @@
                 </tr>
             </table>
         </div>
+        </div>
     </div>
 </div>
 
@@ -164,7 +168,6 @@
         });
 
         $('.btn-save').click(function() {
-            $('.modal').modal('hide');
             $.blockUI({
                 message:
                 '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
@@ -177,6 +180,7 @@
                 opacity: 0.5
                 },
                 timeout: 1000,
+                baseZ: 2000
             });
         });
     });

@@ -28,7 +28,8 @@
                     <td>{{$item->name}}</td>
                     <td class="text-center">{{$item->email}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0" target="_blank" href="{{url('/admin/master/user/'.$item->id)}}">Detail</a>
+                        <a class="btn btn-sm btn-success m-0" target="_blank"
+                            href="{{url('/admin/master/user/'.$item->id)}}">Detail</a>
                     </td>
                 </tr>
                 @endforeach
@@ -59,11 +60,13 @@
                     </div>
                     <div class="form-group">
                         <label for="phone_number">Email</label>
-                        <input type="email" required class="form-control" placeholder="User Email" name="email" id="email">
+                        <input type="email" required class="form-control" placeholder="User Email" name="email"
+                            id="email">
                     </div>
                     <div class="form-group">
                         <label for="phone_number">Password</label>
-                        <input type="password" required class="form-control" placeholder="Password" name="password" id="password">
+                        <input type="password" required class="form-control" placeholder="Password" name="password"
+                            id="password">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -78,26 +81,24 @@
 @endsection
 
 @push('script')
-    <script>
-        $(document).ready(function() {
-        $('.btn-save').click(function() {
-            $('.modal').modal('hide');
-
+<script>
+    $(document).ready(function () {
+        $('.btn-save').click(function () {
             $.blockUI({
-                message:
-                '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
+                message: '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
                 css: {
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: '0'
+                    backgroundColor: 'transparent',
+                    color: '#fff',
+                    border: '0'
                 },
                 overlayCSS: {
-                opacity: 0.5
+                    opacity: 0.5
                 },
                 timeout: 1000,
-            });
-                        // setTimeout($.unblockUI, 2100);
+                baseZ: 2000
             });
         });
-    </script>
+    });
+
+</script>
 @endpush

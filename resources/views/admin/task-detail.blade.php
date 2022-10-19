@@ -177,25 +177,21 @@
     $(document).ready(function() {
         var data_unit = <?php echo json_encode($task)?>;
         var data_unit2 = <?php echo json_encode($assignment)?>;
-        $(document).ready(function() {
-            $(document).on('click', '.edit-btn', function(event){
-                $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
-                $('#form-edit').find('textarea[name="detail"]').val(data_unit.detail);
-                $('#form-edit').find('input[name="file_path", type="file"]').val(data_unit.file_path);
-                $('#form-edit').find('input[name="expired_at", type="datetime-local"]').val(data_unit.expired_at);
 
-            });
+        $('.dropify').dropify();
+
+        $(document).on('click', '.edit-btn', function(event){
+            $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
+            $('#form-edit').find('textarea[name="detail"]').val(data_unit.detail);
+            $('#form-edit').find('input[name="file_path", type="file"]').val(data_unit.file_path);
+            $('#form-edit').find('input[name="expired_at", type="datetime-local"]').val(data_unit.expired_at);
         });
 
-        $(document).ready(function() {
-            $('.dropify').dropify();
-            $(document).on('click', '.show-btn', function(event){
-                $('#form-score').find('textarea[name="detail"]').val(data_unit2.assignment_detail);
-            });
+        $(document).on('click', '.show-btn', function(event){
+            $('#form-score').find('textarea[name="detail"]').val(data_unit2.assignment_detail);
         });
 
         $('.btn-save').click(function() {
-            $('.modal').modal('hide');
             $.blockUI({
                 message:
                 '<div class="d-flex justify-content-center align-items-center"><p class="mr-50 mb-0">Mohon Tunggu...</p> <div class="spinner-grow spinner-grow-sm text-white" role="status"></div> </div>',
@@ -208,6 +204,7 @@
                 opacity: 0.5
                 },
                 timeout: 1000,
+                baseZ: 2000
             });
         });
     });

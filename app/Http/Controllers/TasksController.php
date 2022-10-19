@@ -19,8 +19,6 @@ class TasksController extends Controller
     {
         $student = Student::where('id', Auth::user()->id)->first();
 
-        // dd($student);
-
         $list = DB::table('tasks')
             ->select([
                 'tasks.*',
