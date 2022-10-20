@@ -4,11 +4,13 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <a href="{{url('admin/master/user')}}" class="btn btn-danger m-0">Back</a>
     <div>
+        @if (Auth::guard('admin')->user()->name == 'Admin' || Auth::guard('admin')->user()->id == $user->id)
+        <button type="button" class="btn edit-btn btn-primary" data-toggle="modal" data-target="#editModal">
+            Edit
+        </button>
+        @endif
         @if (Auth::guard('admin')->user()->name == 'Admin')
-            <button type="button" class="btn btn-sm edit-btn btn-primary" data-toggle="modal" data-target="#editModal">
-                Edit
-            </button>
-            <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/master/user/delete/'.$user->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+            <a class="btn btn-danger m-0" href="{{url('/admin/master/user/delete/'.$user->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
         @endif
     </div>
 </div>
@@ -61,7 +63,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone_number">Password</label>
-                        <input type="password" class="form-control" placeholder="Password" name="password"
+                        <input type="password" class="form-control" placeholder="Password" name="new_password"
                             id="password">
                     </div>
                     <div class="form-group">

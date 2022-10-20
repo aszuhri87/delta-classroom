@@ -4,10 +4,10 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <a href="{{url('admin/student')}}" class="btn btn-danger m-0">Back</a>
     <div>
-        <button type="button" class="btn btn-sm edit-btn btn-primary" data-toggle="modal" data-target="#editModal">
+        <button type="button" class="btn edit-btn btn-primary" data-toggle="modal" data-target="#editModal">
             Edit
         </button>
-        <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/student/delete/'.$student->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+        <a class="btn btn-danger m-0" href="{{url('/admin/student/delete/'.$student->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
     </div>
 </div>
 <div class="print-place">

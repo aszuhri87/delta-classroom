@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div class="card w-100 mb-5" >
+    <div class="card card-shadow w-100 mb-5" >
         <div class="card-body">
             @if($errors->has('message'))
             <div class="alert alert-danger mt-3" style="text-align: left;" role="alert">

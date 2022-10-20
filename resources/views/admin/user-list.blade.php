@@ -16,9 +16,9 @@
             <thead>
                 <tr>
                     <th scope="col" class="text-center">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col" class="text-center">Email</th>
-                    <th scope="col" class="text-center">Action</th>
+                    <th width="50%" scope="col">Name</th>
+                    <th width="40%" scope="col" class="text-center">Email</th>
+                    <th width="10%" scope="col" class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
                     <td>{{$item->name}}</td>
                     <td class="text-center">{{$item->email}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0"
+                        <a class="btn btn-success m-0"
                             href="{{url('/admin/master/user/'.$item->id)}}">Detail</a>
                     </td>
                 </tr>
@@ -40,7 +40,7 @@
                         <td>{{$item->name}}</td>
                         <td class="text-center">{{$item->email}}</td>
                         <td class="text-center">
-                            <a class="btn btn-sm btn-success m-0"
+                            <a class="btn btn-success m-0"
                                 href="{{url('/admin/master/user/'.$item->id)}}">Detail</a>
                         </td>
                     </tr>

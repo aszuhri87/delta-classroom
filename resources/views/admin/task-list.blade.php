@@ -34,9 +34,9 @@
                     <td class="text-center">{{$item->task_name}}</td>
                     <td class="text-center">{{$item->expired_at}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0"
+                        <a class="btn btn-success m-0"
                             href="{{url('/admin/task/'.$item->id)}}">Detail</a>
-                        <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/task/delete/'.$item->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        <a class="btn btn-danger m-0" href="{{url('/admin/task/delete/'.$item->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                     </td>
                 </tr>
                 @endforeach

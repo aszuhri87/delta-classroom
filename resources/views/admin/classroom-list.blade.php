@@ -31,12 +31,12 @@
                     <td class="text-center">{{$classroom->division}}</td>
                     <td>
                         <div class="text-center">
-                            <a type="button" class="btn-sm btn-primary edit-btn" data-toggle="modal" data-target="#editModal{{$classroom->id}}">
+                            <a type="button" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal{{$classroom->id}}">
                                 Edit
                             </a>
-                            <a class="btn btn-sm btn-success m-0"  href="{{url('/admin/master/presence/'.$classroom->id)}}">Presence List</a>
+                            <a class="btn btn-success m-0"  href="{{url('/admin/master/presence/'.$classroom->id)}}">Presence List</a>
 
-                            <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/master/classroom/delete/'.$classroom->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                            <a class="btn btn-danger m-0" href="{{url('/admin/master/classroom/delete/'.$classroom->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                         </div>
                         <!-- Modal Edit-->
                         <div class="modal fade" id="editModal{{$classroom->id}}" tabindex="-1" aria-labelledby="editModalLabel{{$classroom->id}}" aria-hidden="true">

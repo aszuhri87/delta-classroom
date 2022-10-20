@@ -16,8 +16,8 @@
             <thead>
                 <tr>
                     <th scope="col" class="text-center">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col" class="text-center">Action</th>
+                    <th width="80%" scope="col">Name</th>
+                    <th width="20%" scope="col" class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                     <th scope="row" class="text-center">{{$index + 1}}</th>
                     <td>{{$item->name}}</td>
                     <td class="text-center">
-                        <a type="button" class="btn btn-sm edit-btn btn-primary" data-toggle="modal" data-target="#editModal">
+                        <a type="button" class="btn edit-btn btn-primary" data-toggle="modal" data-target="#editModal">
                             Edit
                         </a>
                         <!-- Modal -->
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-sm btn-danger m-0" href="{{url('/admin/master/group/delete/'.$item->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        <a class="btn btn-danger m-0" href="{{url('/admin/master/group/delete/'.$item->id)}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                     </td>
                 </tr>
                 @endforeach

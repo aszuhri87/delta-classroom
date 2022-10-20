@@ -33,7 +33,7 @@
                     <td class="text-center">{{$item->group_name}}</td>
                     <td class="text-center">{{$item->number}}</td>
                     <td class="text-center">
-                        <a class="btn btn-sm btn-success m-0"  href="{{url('/admin/student/'.$item->id)}}">Detail</a>
+                        <a class="btn btn-success m-0"  href="{{url('/admin/student/'.$item->id)}}">Detail</a>
                     </td>
                 </tr>
                 @endforeach
