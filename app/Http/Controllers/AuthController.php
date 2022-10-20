@@ -15,7 +15,7 @@ class AuthController extends Controller
             'email' => 'required',
         ]);
 
-        $user = \App\Models\Student::where('email', $request->email)->first();
+        $user = \App\Models\Student::where('email', $request->email)->whereNull('deleted_at')->first();
 
         if (!$user) {
             return Redirect::back()->withErrors(['message' => 'Login failed!, check your email or password.'])->withInput();

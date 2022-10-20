@@ -23,6 +23,7 @@ class ClassroomController extends Controller
             ->leftJoin('users', 'users.id', 'classrooms.user_id')
             ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
             ->where('classrooms.division_id', Auth::guard('admin')->user()->division_id)
+            ->whereNull('classrooms.deleted_at')
             ->paginate(10);
         } else {
             $list = DB::table('classrooms')
@@ -33,6 +34,7 @@ class ClassroomController extends Controller
             ])
             ->leftJoin('users', 'users.id', 'classrooms.user_id')
             ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
+            ->whereNull('classrooms.deleted_at')
             ->paginate(10);
         }
 

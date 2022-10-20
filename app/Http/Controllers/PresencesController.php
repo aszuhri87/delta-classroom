@@ -21,6 +21,7 @@ class PresencesController extends Controller
             ])
             ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
             ->leftJoin('users', 'users.id', 'classrooms.user_id')
+            ->whereNull('classrooms.deleted_at')
             ->paginate(10);
 
         $history = DB::table('presences')
@@ -35,6 +36,7 @@ class PresencesController extends Controller
             ->leftJoin('divisions', 'divisions.id', 'classrooms.division_id')
             ->whereNull('presences.deleted_at')
             ->where('presences.student_id', Auth::id())
+            ->whereNull('presences.deleted_at')
             ->orderBy('presences.datetime', 'desc')
             ->paginate(10);
 

@@ -61,6 +61,7 @@ class PresenceController extends Controller
         ])
         ->leftJoin('groups', 'groups.id', 'students.group_id')
         ->where('students.id', $id)
+        ->whereNull('students.deleted_at')
         ->first();
 
         $group = DB::table('groups')

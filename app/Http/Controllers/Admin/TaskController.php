@@ -26,6 +26,7 @@ class TaskController extends Controller
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
             ->orderBy('tasks.created_at', 'desc')
+            ->whereNull('tasks.deleted_at')
             ->where('tasks.division_id', Auth::guard('admin')->user()->division_id)
             ->paginate(10);
         } else {
@@ -38,6 +39,7 @@ class TaskController extends Controller
             ])
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
+            ->whereNull('tasks.deleted_at')
             ->orderBy('tasks.created_at', 'desc')
             ->paginate(10);
         }
@@ -72,6 +74,7 @@ class TaskController extends Controller
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
             ->leftJoin('divisions', 'divisions.id', 'tasks.division_id')
             ->where('tasks.id', $id)
+            ->whereNull('tasks.deleted_at')
             ->orderBy('tasks.created_at', 'desc')
             ->first();
 
@@ -93,16 +96,18 @@ class TaskController extends Controller
 
         $assignment = DB::table('assignment_files')
         ->select([
+            'assignment_files.id',
             'assignment_files.assignment_id',
             'assignment_files.name as assignment_name',
             'students.name as student_name',
+            'assignments.detail',
             DB::raw('CONCAT(assignment_files.file_path,assignment_files.name) as file_path'),
             DB::raw('CASE WHEN assignments.score IS NULL THEN 0 ELSE assignments.score END AS score'),
-            'assignments.detail as assignment_detail',
         ])
         ->leftJoin('assignments', 'assignments.id', 'assignment_files.assignment_id')
         ->leftJoin('students', 'students.id', 'assignments.student_id')
         ->where('assignments.task_id', $id)
+        ->whereNull('assignments.deleted_at')
         ->orderBy('assignments.created_at', 'desc')
         ->paginate(10);
 

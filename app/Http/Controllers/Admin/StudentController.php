@@ -25,6 +25,7 @@ class StudentController extends Controller
             ])
             ->leftJoin('groups', 'groups.id', 'students.group_id')
             ->orderBy('students.group_id', 'asc')
+            ->whereNull('students.deleted_at')
             ->paginate(10);
 
         $group = DB::table('groups')
@@ -53,6 +54,7 @@ class StudentController extends Controller
         ])
         ->leftJoin('groups', 'groups.id', 'students.group_id')
         ->where('students.id', $id)
+        ->whereNull('students.deleted_at')
         ->first();
 
         $group = DB::table('groups')
@@ -74,11 +76,12 @@ class StudentController extends Controller
         ->groupBy('presences.student_id', 'presences.classroom_id', 'classrooms.id', 'presences.datetime')
         ->whereNull('presences.deleted_at')
         ->where('presences.student_id', $id)
-        ->where(function($query){
-            if(\Auth::guard('admin')->user()->division_id){
+        ->where(function ($query) {
+            if (\Auth::guard('admin')->user()->division_id) {
                 $query->where('classrooms.division_id', \Auth::guard('admin')->user()->division_id);
             }
         })
+        ->whereNull('presences.deleted_at')
         ->orderBy('presences.datetime', 'desc')
         ->paginate(10);
 

@@ -54,7 +54,7 @@
         <div class="d-flex justify-content-between mb-3">
             <h5>Student Assignment list</h5>
         </div>
-        <table class="table mb-0 table-bordered" width="100%">
+        <table class="table mb-0 table-bordered" width="100%" id="table_assign">
             <thead>
                 <tr>
                     <th scope="col" class="text-center">#</th>
@@ -73,14 +73,14 @@
                     <td class="text-center">{{$list->score}}</td>
                     <td>
                         <center>
-                            <button type="button" class="btn btn-primary show-btn" data-toggle="modal" data-target="#showModal{{$list->assignment_id}}">
+                            <button type="button" class="btn btn-primary show-btn" data-toggle="modal" data-target="#showModal">
                                 Show
                             </button>
                         </center>
-                        <div class="modal fade" id="showModal{{$list->assignment_id}}" tabindex="-1" aria-labelledby="showModalLabel{{$list->assignment_id}}" aria-hidden="true">
+                        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action="{{url('admin/assignment/score/'.$list->assignment_id)}}" id="form-score" method="post" enctype="multipart/form-data">
+                                    <form action="{{url('admin/assignment/score/'.$list->assignment_id)}}" id="form-show" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="modal-body">
                                             <div class="form-group">
@@ -89,7 +89,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="detail">Detail</label>
-                                                <textarea name="detail" class="form-control" id="detail" rows="3" value="{{$list->assignment_detail}}"></textarea>
+                                                <textarea name="detail" id="assignmentDetail" required class="form-control" placeholder="Write here ..." id="detail" rows="3" ></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Attachment : </label>
@@ -111,7 +111,7 @@
                     </td>
                 </tr>
                 @endforeach
-            </tbody>z
+            </tbody>
         </table>
         <div class="mt-4 w-100">
             {{ $assignment->links() }}
@@ -186,8 +186,8 @@
 @push('script')
 <script>
     $(document).ready(function() {
-        var data_unit = <?php echo json_encode($task)?>;
         var data_unit2 = <?php echo json_encode($assignment)?>;
+        var data_unit = <?php echo json_encode($task)?>;
 
         $('.dropify').dropify();
 
@@ -200,7 +200,16 @@
         });
 
         $(document).on('click', '.show-btn', function(event){
-            $('#form-score').find('textarea[name="detail"]').val(data_unit2.assignment_detail);
+            var i= null;
+            i =  $(this).closest("tr").find('th:eq(0)').text()-1;
+
+            var value = data_unit2.data[i].detail
+
+            $('#assignmentDetail').val(value);
+        });
+
+        $(document).on('hide.bs.modal','#showModal', function(event){
+                location.reload();
         });
 
         $('.btn-save').click(function() {

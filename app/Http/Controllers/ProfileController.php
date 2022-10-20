@@ -14,6 +14,7 @@ class ProfileController extends Controller
     {
         $student = Student::where('id', Auth::id())
         ->select(['*'])
+        ->whereNull('deleted_at')
         ->first();
 
         return view('profile', compact('student'));

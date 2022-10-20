@@ -56,8 +56,10 @@ class TasksController extends Controller
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
             ->where('tasks.id', $id)
+            ->whereNull('tasks.deleted_at')
             ->orderBy('tasks.created_at', 'desc')
             ->first();
+
         $task->task_file = str_replace('storage/files/', '', $task->file_path);
 
         $assignment = DB::table('assignment_files')
