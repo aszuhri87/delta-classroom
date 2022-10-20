@@ -136,11 +136,15 @@
                 </tbody>
             </table>
 
+            @if (!$assignment->score)
+
             <center>
                 <button type="button" class="btn btn-primary edit-btn mt-3" data-toggle="modal" data-target="#editModal{{$assignment->assignment_id}}">
                     Edit Tugas
                 </button>
             </center>
+
+            @endif
 
             <table class="table mb-0 table-bordered mt-5" width="100%">
                 <tr>
