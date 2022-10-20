@@ -13,6 +13,7 @@
                     <th scope="col" class="text-center">#</th>
                     <th scope="col" class="text-center">Student Name</th>
                     <th scope="col" class="text-center">Group Name</th>
+                    <th scope="col" class="text-center">Presence Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,7 @@
                     <th scope="row" class="text-center">{{$index + 1}}</th>
                     <td>{{$classroom->student_name}}</td>
                     <td>{{$classroom->group_name}}</td>
+                    <td>{{$classroom->presence_date}}</td>
                 </tr>
                 @endforeach
             </tbody>
