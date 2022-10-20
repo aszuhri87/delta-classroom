@@ -51,7 +51,7 @@ class PresencesController extends Controller
             return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Kode tidak dikenal.'])->withInput();
         }
 
-        $presence = Presence::where('classroom_id', $class->id)->first();
+        $presence = Presence::where(['classroom_id' => $class->id, 'student_id' => Auth::id()])->first();
 
         if ($presence) {
             return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Anda presensi di kelas ini'])->withInput();
