@@ -19,6 +19,9 @@ class TasksController extends Controller
     {
         $student = Student::where('id', Auth::user()->id)->first();
 
+        $assignment = DB::table('assignments')
+            ->where('student_id', $student->id);
+
         $list = DB::table('tasks')
             ->select([
                 'tasks.*',
@@ -34,7 +37,9 @@ class TasksController extends Controller
             ])
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
-            ->leftJoin('assignments', 'assignments.task_id', 'tasks.id')
+            ->leftJoinSub($assignment, 'assignments', function ($join){
+                $join->on('assignments.task_id', 'tasks.id');
+            })
             ->where('tasks.group_id', $student->group_id)
             ->whereNull('tasks.deleted_at')
             ->orderBy('tasks.created_at', 'desc')
