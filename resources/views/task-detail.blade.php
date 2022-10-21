@@ -42,11 +42,13 @@
             <br>
             <div>
                 @if (!$assignment)
-                <center>
-                    <button type="button" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#addModal">
-                        Kumpulkan Tugas
-                    </button>
-                </center>
+                    @if ($task->expires == false)
+                        <center>
+                            <button type="button" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#addModal">
+                                Kumpulkan Tugas
+                            </button>
+                        </center>
+                    @endif
                 @endif
             </div>
         </div>

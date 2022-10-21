@@ -24,7 +24,7 @@
                         <th scope="row" class="text-center">{{$index + 1}}</th>
                         <td >{{$item->task_name}}</td>
                         <td class="text-center @if($item->status != 'Sudah Mengumpulkan') text-danger @endif">{{$item->status}}</td>
-                        <td class="text-center">{{$item->expired_at}}</td>
+                        <td class="text-center"> @if ($item->expires == false) {{$item->expired_at}} @else Batas Waktu Berakhir @endif</td>
                         <td class="text-center">
                             <a class="btn btn-sm btn-success m-0" href="{{url('task/'.$item->id)}}">Detail</a>
                         </td>

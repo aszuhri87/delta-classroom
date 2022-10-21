@@ -33,13 +33,13 @@ class PresenceController extends Controller
             'students.group_name',
             'students.number as student_number',
             'classrooms.*',
-            'presences.created_at as presence_date',
+            'presences.datetime as presence_date',
             DB::raw('COUNT(presences.student_id) as presence_total'),
         ])->leftJoin('classrooms', 'classrooms.id', 'presences.classroom_id')
         ->leftJoinSub($student, 'students', function ($join) {
             $join->on('students.id', '=', 'presences.student_id');
         })
-        ->groupBy('presences.student_id', 'presences.classroom_id', 'classrooms.id', 'students.name', 'students.group_name', 'students.number', 'presences.created_at')
+        ->groupBy('presences.student_id', 'presences.classroom_id', 'classrooms.id', 'students.name', 'students.group_name', 'students.number', 'presences.datetime')
         ->whereNull('presences.deleted_at')
         ->where('presences.classroom_id', $id)
         ->paginate(10);

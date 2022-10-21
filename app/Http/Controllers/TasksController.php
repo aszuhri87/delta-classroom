@@ -34,10 +34,16 @@ class TasksController extends Controller
                         ELSE 'Belum Mengumpulkan'
                     END status
                 "),
+                DB::raw("
+                CASE WHEN tasks.expired_at <= '".date('Y-m-d H:i:s')."'
+                    THEN TRUE
+                    ELSE FALSE
+                END expires
+            "),
             ])
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
-            ->leftJoinSub($assignment, 'assignments', function ($join){
+            ->leftJoinSub($assignment, 'assignments', function ($join) {
                 $join->on('assignments.task_id', 'tasks.id');
             })
             ->where('tasks.group_id', $student->group_id)
@@ -57,6 +63,12 @@ class TasksController extends Controller
                 'users.name as teacher_name',
                 'groups.name as group_name',
                 'groups.id as group_id',
+                DB::raw("
+                CASE WHEN tasks.expired_at <= '".date('Y-m-d H:i:s')."'
+                    THEN TRUE
+                    ELSE FALSE
+                END expires
+            "),
             ])
             ->leftJoin('users', 'users.id', 'tasks.user_id')
             ->leftJoin('groups', 'groups.id', 'tasks.group_id')
