@@ -59,7 +59,7 @@ class PresencesController extends Controller
 
         $tomorow = date('Y-m-d', strtotime($class->created_at.' +1 day'));
 
-        if (date('Y-m-d') == $tomorow) {
+        if (date('Y-m-d') == $tomorow || $tomorow < date('Y-m-d')) {
             return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Kode kadaluarsa'])->withInput();
         }
 
