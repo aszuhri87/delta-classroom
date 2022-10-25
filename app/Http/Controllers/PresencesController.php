@@ -57,9 +57,11 @@ class PresencesController extends Controller
             return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Anda presensi di kelas ini'])->withInput();
         }
 
-        // if ($class->created_at < date('Y-m-d H:i:s', '1')) {
-        //     return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Kode kadaluarsa'])->withInput();
-        // }
+        $tomorow = date('Y-m-d', strtotime($class->created_at.' +1 day'));
+
+        if (date('Y-m-d') == $tomorow) {
+            return Redirect::back()->withErrors(['message' => 'Presensi gagal!, Kode kadaluarsa'])->withInput();
+        }
 
         if ($request->presence_code == $class->presence_code) {
             Presence::create([
