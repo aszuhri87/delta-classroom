@@ -191,7 +191,7 @@
 
         $('.dropify').dropify();
 
-        $(document).on('click', '.edit-btn', function(event){value="{{$task->detail}}"
+        $(document).on('click', '.edit-btn', function(event){
             $('#form-edit').find('select[name="division"]').find('option[value="'+ data_unit.division_id+'"]').prop('selected', true);
             $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
             $('#form-edit').find('textarea[name="detail"]').val(data_unit.detail);
