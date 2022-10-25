@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Attachment : </label>
-                                                <a target="_blank" href="{{asset($list->file_path)}}"> <input type="text" id="assignFile" disabled class="form-control text-primary"> </a>
+                                                <a target="_blank" name="filepath" id="filepath" href=""> <input type="text" id="assignFile" disabled class="form-control text-primary"> </a>
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Give Score</label>
@@ -207,6 +207,7 @@
             $('#assignName').val(data_unit2.data[i].assignment_name);
             $('#assignFile').val(data_unit2.data[i].assignment_name);
             $('#score').val(data_unit2.data[i].score);
+            $('#filepath').attr("href", "/"+ data_unit2.data[i].file_path);
 
         });
 
