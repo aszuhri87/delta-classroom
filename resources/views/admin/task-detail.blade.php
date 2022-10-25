@@ -59,7 +59,7 @@
                 <tr>
                     <th scope="col" class="text-center">#</th>
                     <th scope="col">Student Name</th>
-                    <th scope="col" class="text-center">Assignment Name</th>
+                    <th scope="col" class="text-center">Submitted At</th>
                     <th scope="col" class="text-center">Score</th>
                     <th scope="col" class="text-center">Action</th>
                 </tr>
@@ -69,7 +69,7 @@
                 <tr>
                     <th scope="row" class="text-center">{{$index + 1}}</th>
                     <td>{{$list->student_name}}</td>
-                    <td class="text-center">{{$list->assignment_name}}</td>
+                    <td class="text-center">{{$list->submitted_at}}</td>
                     <td class="text-center">{{$list->score}}</td>
                     <td>
                         <center>
@@ -85,7 +85,7 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="number-input">Name</label>
-                                                <input class="form-control" placeholder="Task Name" name="name" id="name" value="{{$list->assignment_name}}">
+                                                <input class="form-control" placeholder="Task Name" name="name" id="assignName">
                                             </div>
                                             <div class="form-group">
                                                 <label for="detail">Detail</label>
@@ -93,11 +93,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Attachment : </label>
-                                                     <a target="_blank" href="{{asset($list->file_path)}}"> {{$list->assignment_name}}</a>
+                                                <a target="_blank" href="{{asset($list->file_path)}}"> <input type="text" id="assignFile" disabled class="form-control text-primary"> </a>
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Give Score</label>
-                                                <input type="number" class="form-control" placeholder="Give your score" name="score" max="100" id="score" value="{{$list->score}}">
+                                                <input type="number" class="form-control" placeholder="Give your score" name="score" max="100" id="score" >
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -191,7 +191,7 @@
 
         $('.dropify').dropify();
 
-        $(document).on('click', '.edit-btn', function(event){
+        $(document).on('click', '.edit-btn', function(event){value="{{$task->detail}}"
             $('#form-edit').find('select[name="division"]').find('option[value="'+ data_unit.division_id+'"]').prop('selected', true);
             $('#form-edit').find('select[name="group"]').find('option[value="'+ data_unit.group_id+'"]').prop('selected', true);
             $('#form-edit').find('textarea[name="detail"]').val(data_unit.detail);
@@ -203,13 +203,11 @@
             var i= null;
             i =  $(this).closest("tr").find('th:eq(0)').text()-1;
 
-            var value = data_unit2.data[i].detail
+            $('#assignmentDetail').val(data_unit2.data[i].detail);
+            $('#assignName').val(data_unit2.data[i].assignment_name);
+            $('#assignFile').val(data_unit2.data[i].assignment_name);
+            $('#score').val(data_unit2.data[i].score);
 
-            $('#assignmentDetail').val(value);
-        });
-
-        $(document).on('hide.bs.modal','#showModal', function(event){
-                location.reload();
         });
 
         $('.btn-save').click(function() {

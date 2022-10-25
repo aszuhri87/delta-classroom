@@ -101,6 +101,7 @@ class TaskController extends Controller
             'assignment_files.name as assignment_name',
             'students.name as student_name',
             'assignments.detail',
+            'assignments.created_at as submitted_at',
             DB::raw('CONCAT(assignment_files.file_path,assignment_files.name) as file_path'),
             DB::raw('CASE WHEN assignments.score IS NULL THEN 0 ELSE assignments.score END AS score'),
         ])
