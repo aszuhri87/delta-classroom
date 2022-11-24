@@ -12,7 +12,7 @@ Route::prefix('admin')->middleware(['admin-handling'])->group(function () {
 
     Route::post('task/update/{id}', [TaskController::class, 'update']);
 
-    Route::post('assignment/score/{id}', [TaskController::class, 'scoring']);
+    Route::post('assignment/score', [TaskController::class, 'scoring']);
 
     Route::get('task/download/{id}', [TaskController::class, 'download']);
 

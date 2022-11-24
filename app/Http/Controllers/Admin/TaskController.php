@@ -181,8 +181,10 @@ class TaskController extends Controller
         return Redirect::back();
     }
 
-    public function scoring(Request $request, $id)
+    public function scoring(Request $request)
     {
+        $id = $request->assignment_id;
+
         Assignment::find($id)->update([
             'score' => $request->score,
         ]);

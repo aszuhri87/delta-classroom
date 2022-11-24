@@ -88,6 +88,7 @@ class TasksController extends Controller
                 DB::raw("CASE WHEN assignments.detail IS NULL THEN '-' ELSE assignments.detail END AS detail"),
                 'assignment_files.created_at',
                 'assignment_files.assignment_id',
+                'assignments.id as ass_id',
             ])
             ->leftJoin('assignments', 'assignments.id', 'assignment_files.assignment_id')
             ->where('assignments.student_id', Auth::id())

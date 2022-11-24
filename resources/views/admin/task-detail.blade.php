@@ -73,31 +73,32 @@
                     <td class="text-center">{{$list->score}}</td>
                     <td>
                         <center>
-                            <button type="button" class="btn btn-primary show-btn" data-toggle="modal" data-target="#showModal">
+                            <button type="button" class="btn btn-primary show-btn" data-toggle="modal" data-target="#showModal{{$list->assignment_id}}">
                                 Show
                             </button>
                         </center>
-                        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="showModal{{$list->assignment_id}}" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action="{{url('admin/assignment/score/'.$list->assignment_id)}}" id="form-show" method="post" enctype="multipart/form-data">
+                                    <form action="{{url('admin/assignment/score')}}" id="form-{{$list->assignment_id}}" method="post">
                                         @csrf
+                                        <input type="hidden" name="assignment_id" value="{{$list->assignment_id}}">
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="number-input">Name</label>
-                                                <input class="form-control" placeholder="Task Name" name="name" id="assignName">
+                                                <input class="form-control" placeholder="Task Name" name="name" id="assignName" value="{{$list->assignment_name}}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="detail">Detail</label>
-                                                <textarea name="detail" id="assignmentDetail" required class="form-control" placeholder="Write here ..." id="detail" rows="3" ></textarea>
+                                                <textarea name="detail" id="assignmentDetail" required class="form-control" placeholder="Write here ..." id="detail" rows="3">{{$list->detail}}</textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Attachment : </label>
-                                                <a target="_blank" name="filepath" id="filepath" href=""> <input type="text" id="assignFile" disabled class="form-control text-primary"> </a>
+                                                <a target="_blank" name="filepath" id="filepath" href="{{ asset($list->file_path)}}"> <input type="text" id="assignFile" disabled class="form-control text-primary" value="{{$list->file_path}}"> </a>
                                             </div>
                                             <div class="form-group">
                                                 <label for="number-input">Give Score</label>
-                                                <input type="number" class="form-control" placeholder="Give your score" name="score" max="100" id="score" >
+                                                <input type="number" class="form-control" placeholder="Give your score" name="score" max="100" id="score" value="{{$list->score}}">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -199,17 +200,16 @@
             $('#form-edit').find('input[name="expired_at", type="datetime-local"]').val(data_unit.expired_at);
         });
 
-        $(document).on('click', '.show-btn', function(event){
-            var i= null;
-            i =  $(this).closest("tr").find('th:eq(0)').text()-1;
+        // $(document).on('click', '.show-btn', function(event){
+        //     var i= null;
+        //     i =  $(this).closest("tr").find('th:eq(0)').text()-1;
 
-            $('#assignmentDetail').val(data_unit2.data[i].detail);
-            $('#assignName').val(data_unit2.data[i].assignment_name);
-            $('#assignFile').val(data_unit2.data[i].assignment_name);
-            $('#score').val(data_unit2.data[i].score);
-            $('#filepath').attr("href", "/"+ data_unit2.data[i].file_path);
-
-        });
+        //     $('#assignmentDetail').val(data_unit2.data[i].detail);
+        //     $('#assignName').val(data_unit2.data[i].assignment_name);
+        //     $('#assignFile').val(data_unit2.data[i].assignment_name);
+        //     $('#score').val(data_unit2.data[i].score);
+        //     $('#filepath').attr("href", "/"+ data_unit2.data[i].file_path);
+        // });
 
         $('.btn-save').click(function() {
             $.blockUI({
