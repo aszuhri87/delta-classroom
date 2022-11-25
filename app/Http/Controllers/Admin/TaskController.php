@@ -128,7 +128,7 @@ class TaskController extends Controller
 
             $value = 'storage/files/'.$name;
         } else {
-            $value = $request->file_path;
+            $value = null;
         }
 
         if ($request->division) {
@@ -159,7 +159,7 @@ class TaskController extends Controller
 
             $value = 'storage/files/'.$name;
         } else {
-            $value = $request->file_path;
+            $value = null;
         }
 
         if ($request->division) {

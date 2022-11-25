@@ -21,7 +21,7 @@ class AssignmentsController extends Controller
 
             $value = 'storage/assignment_files/';
         } else {
-            $value = $request->file_path;
+            $value = null;
         }
 
         $assignment = Assignment::create([

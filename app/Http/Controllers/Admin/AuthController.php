@@ -19,7 +19,7 @@ class AuthController extends Controller
         if (Auth::guard('admin')->attempt($login)) {
             return redirect('/admin/task');
         } else {
-            return Redirect::back()->withErrors(['message' => 'Login failed!, check your email.'])->withInput();
+            return Redirect::back()->withErrors(['message' => 'Login failed!, check your username and password!.'])->withInput();
         }
     }
 

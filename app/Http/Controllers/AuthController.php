@@ -13,21 +13,23 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             'email' => 'required',
+            'password' => 'required',
         ]);
 
         $user = \App\Models\Student::where('email', $request->email)->whereNull('deleted_at')->first();
 
         if (!$user) {
             return Redirect::back()->withErrors(['message' => 'Login failed!, check your email or password.'])->withInput();
-            if (!Hash::check($request->password, $user->password)) {
-                return Redirect::back()->withErrors(['message' => 'Login failed!, check your password.'])->withInput();
-            }
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return Redirect::back()->withErrors(['message' => 'Login failed!, check your email or password.'])->withInput();
         }
 
         if ($user && Auth::login($user)) {
             return redirect('/task');
         } else {
-            return Redirect::back()->withErrors(['message' => 'Login failed!, check your email.'])->withInput();
+            return Redirect::back()->withErrors(['message' => 'Login failed!, check your email or password.'])->withInput();
         }
     }
 
