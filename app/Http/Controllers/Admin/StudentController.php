@@ -158,7 +158,7 @@ class StudentController extends Controller
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             $errormessage = "";
-            dd($failures);
+            // dd($failures);
             foreach ($failures as $failure) {
                 $errormess = "";
                 foreach($failure->errors() as $error)
