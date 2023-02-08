@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Exceptions\SheetNotFoundException;
 
 class StudentController extends Controller
 {
@@ -149,8 +150,26 @@ class StudentController extends Controller
 
     public function import(Request $request)
     {
-        Excel::import(new ImportStudent(), $request->file('file'));
+        try{
+            Excel::import(new ImportStudent(), $request->file('file'));
 
-        return Redirect::back();
+            return Redirect::back();
+
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errormessage = "";
+            // dd($failures);
+            foreach ($failures as $failure) {
+                $errormess = "";
+                foreach($failure->errors() as $error)
+                {
+                    $errormess = $errormess.$error;
+                }
+                $errormessage = "Import failed, check your Excel file first! make sure the row is not empty or have duplicate data on unique field.";
+            }
+
+            return Redirect::back()->withErrors(['message' => $errormessage])->withInput();
+       }
+
     }
 }

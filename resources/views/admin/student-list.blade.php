@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if($errors->has('message'))
+<div class="alert alert-danger mt-3" style="text-align: left;" role="alert">
+    {{ $errors->first('message') }}
+</div>
+@endif
+
 <div class="card w-100 mb-5">
     <div class="card-body">
         <div class="d-flex justify-content-between mb-3">
@@ -124,6 +130,7 @@
                     <div class="custom-file mb-2">
                         <input type="file" name="file" class="dropify" data-allowed-file-extensions="xls xlsx csv">
                     </div>
+                    <span class="text-primary">*Minimum row of spreadsheet table is 2 row data!</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
