@@ -68,3 +68,5 @@ include base_path('routes/admin/master/student.php');
 include base_path('routes/admin/master/user.php');
 include base_path('routes/admin/master/group.php');
 include base_path('routes/admin/master/division.php');
+
+include base_path('routes/tutorial.php');
