@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{url('/')}}">
-                <img src="{{asset('logo/logo.png')}}" class="" width="100px" alt="">
+                GMEDIA GOES TO SMK N 1 PURWOKERTO
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
