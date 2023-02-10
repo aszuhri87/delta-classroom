@@ -268,7 +268,7 @@ public function store(Request $request)
         'harga' => $request->harga,
     ]);
 
-    return redirect('/product/tampil');
+    return redirect('/product');
 }
                     </code>
                 </pre>
@@ -304,7 +304,7 @@ public function update(Request $request, $id)
         'harga' => $request->harga,
     ]);
 
-    return redirect('/product/tampil');
+    return redirect('/product');
 }
                     </code>
                 </pre>
@@ -320,7 +320,7 @@ public function destroy($id)
 {
     $product = Product::find($id)->delete();
 
-    return redirect('/product/tampil');
+    return redirect('/product');
 }
                     </code>
                 </pre>
