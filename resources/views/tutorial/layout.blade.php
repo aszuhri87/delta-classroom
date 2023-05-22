@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('lib/prism.css')}}"/>
 
-    <title>Delta Tutorial</title>
+    <title>GMEDIA Tutorial</title>
 
     @stack('style')
 </head>
@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{url('/')}}">
-                GMEDIA GOES TO SMK N 1 PURWOKERTO
+                GMEDIA GOES TO SCHOOL
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

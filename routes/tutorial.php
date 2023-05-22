@@ -19,4 +19,8 @@ Route::prefix('tutorial')->middleware(['guest-admin-handling'])->group(function 
     Route::get('smkn-1-pwt', function (Request $request) {
         return view('tutorial.smk-n-1-purwokerto');
     });
+
+    Route::get('basic-laravel', function (Request $request) {
+        return view('tutorial.basic-laravel');
+    });
 });
